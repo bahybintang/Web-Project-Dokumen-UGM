@@ -17,9 +17,9 @@ const dbSchema = mongoose.Schema({
         required: true
     }
 });
-dbSchema.index({file_name:'text', fakultas:'text', title:'text'});
+dbSchema.index({file_name:'text', fakultas:'text', title:'text', url: 'text'});
 
-const database = module.exports = mongoose.model('database', dbSchema);
+const database = module.exports = mongoose.model('file_data', dbSchema, 'file_data');
 
 module.exports.getData = function(callback, limit){
     database.find(callback).limit(limit);
