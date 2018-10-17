@@ -4,6 +4,12 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 DB = require('./models/database');
 
+// test login
+const jwt = require('./_helpers/jwt');
+const errorHandler = require('./_helpers/error-handler');
+const cors = require('cors');
+//
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -94,6 +100,15 @@ app.get('/api/page', (req, res) => {
         res.json(data);
     });
 });
+
+// Coba Login
+app.use(jwt());
+
+// api routes
+app.use('/users', require('./users/users.controller'));
+
+// global error handler
+app.use(errorHandler);
 
 app.listen(3000, function(){
     console.log("listening port 3000...")
