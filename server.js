@@ -2,12 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
-// test login
-//const jwt = require('./_helpers/jwt');
-const errorHandler = require('./_helpers/error-handler');
 const cors = require('cors');
-//
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -29,20 +24,16 @@ var db = mongoose.connection;
 
 app.use(express.static(__dirname + "/public"));
 
-// Coba Login
-//app.use(jwt());
-
-// api routes
+// users handling route
 app.use('/users', require('./users/users.controller'));
-
-// global error handler
-app.use(errorHandler);
 
 app.get('/', function(req, res){
     res.send("Pake /api or /user gan!");
 });
 
 app.use('/api', require('./data/database.controller'));
+
+app.use(require('./_helpers/error-handler'));
 
 app.listen(3000, function(){
     console.log("listening port 3000...")

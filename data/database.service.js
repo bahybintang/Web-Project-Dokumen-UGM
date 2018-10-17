@@ -17,13 +17,7 @@ module.exports = {
     },
     updateData : function(id, data, options, callback){
         var query = {'_id': id};
-        var update = {
-            file_name: data.file_name,
-            url: data.url,
-            fakultas: data.fakultas,
-            title: data.title
-        };
-        database.findByIdAndUpdate(query, update, options, callback);
+        database.findByIdAndUpdate(query, JSON.stringify(data), options, callback);
     },
     getPage : function(req, callback){
         var _page = req.query._page;
@@ -32,7 +26,6 @@ module.exports = {
     },
     searchData : function(req, callback, limit){
         var key = new RegExp(req.query.key, "i");
-        console.log(key);
         var query = { $or: [{
             fakultas: {
                 $regex: key
@@ -44,7 +37,6 @@ module.exports = {
                 $regex: key
             }}]
         };
-    
         if(req.query._page === null && req.query._page_len === null){
             database.find(query, callback).limit(limit);
         }

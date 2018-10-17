@@ -55,5 +55,3 @@ function _delete(req, res, next) {
         .then(() => res.json({}))
         .catch(err => next(err));
 }
-
-router.use(require('../_helpers/error-handler'));
