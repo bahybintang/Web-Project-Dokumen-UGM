@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 // test login
-const jwt = require('./_helpers/jwt');
+//const jwt = require('./_helpers/jwt');
 const errorHandler = require('./_helpers/error-handler');
 const cors = require('cors');
 //
@@ -30,7 +30,7 @@ var db = mongoose.connection;
 app.use(express.static(__dirname + "/public"));
 
 // Coba Login
-app.use(jwt());
+//app.use(jwt());
 
 // api routes
 app.use('/users', require('./users/users.controller'));
@@ -39,7 +39,7 @@ app.use('/users', require('./users/users.controller'));
 app.use(errorHandler);
 
 app.get('/', function(req, res){
-    res.send("Pake /api gan!");
+    res.send("Pake /api or /user gan!");
 });
 
 app.use('/api', require('./data/database.controller'));

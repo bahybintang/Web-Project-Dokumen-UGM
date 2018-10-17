@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const userService = require('./user.service');
+var jwt = require('../_helpers/jwt');
 
 // routes
 router.post('/authenticate', authenticate);
 router.post('/register', register);
-router.get('/', getAll);
-router.get('/current', getCurrent);
-router.get('/:id', getById);
-router.put('/:id', update);
-router.delete('/:id', _delete);
+router.get('/', jwt.user(), getAll);
+router.get('/current', jwt.user(), getCurrent);
+router.get('/:id', jwt.user(), getById);
+router.put('/:id', jwt.admin(), update);
+router.delete('/:id', jwt.admin() , _delete);
 
 module.exports = router;
 
@@ -54,3 +55,5 @@ function _delete(req, res, next) {
         .then(() => res.json({}))
         .catch(err => next(err));
 }
+
+router.use(require('../_helpers/error-handler'));

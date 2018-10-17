@@ -2,11 +2,12 @@ var express = require('express');
 var app = module.exports = express.Router();
 var bodyParser = require('body-parser');
 var DB = require('./database.service');
+var jwt = require('../_helpers/jwt');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post('/add', (req, res) => {
+app.post('/add', jwt.user(), (req, res) => {
     DB.addData(req.body, function(err){
         if(err){
             throw err;
@@ -18,7 +19,7 @@ app.post('/add', (req, res) => {
     });
 });
 
-app.delete('/delete/:id', (req, res) => {
+app.delete('/delete/:id', jwt.admin(), (req, res) => {
     DB.deleteData(req.params.id, function(err){
         if(err){
             throw err;
@@ -51,7 +52,7 @@ app.get('/get/:id', (req, res) => {
     });
 });
 
-app.post('/update/:id', (req, res) => {
+app.post('/update/:id', jwt.user(), (req, res) => {
     DB.updateData(req.params.id, req.body, {}, function(err){
         if(err){
             throw err;
@@ -84,3 +85,5 @@ app.get('/page', (req, res) => {
         res.json(data);
     });
 });
+
+app.use(require('../_helpers/error-handler'));
