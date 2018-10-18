@@ -3,9 +3,33 @@ var app = module.exports = express.Router();
 var bodyParser = require('body-parser');
 var DB = require('./database.service');
 var jwt = require('../_helpers/jwt');
+// var upload = require('express-fileupload');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// app.use(upload());
+
+// // Upload file
+// // Masi belum fix
+// app.post('/photos/upload', function(req, res, next){
+//     if(req.files){
+//         var file = req.files.filename;
+//         var filename = file.name;
+//         //console.log(req.files.filename);
+//         file.mv("./upload/" + filename, function(err){
+//             if(err){
+//                 next(err);
+//             }
+//             else{
+//                 res.status(200).end();
+//             }
+//         })
+//     }
+//     else{
+//         res.status(400).end();
+//     }
+// });
 
 app.post('/add', jwt.user(), (req, res, next) => {
     DB.addData(req.body, function(err){

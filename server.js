@@ -2,7 +2,6 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-const cors = require('cors');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -31,7 +30,7 @@ app.get('/', function(req, res){
     res.send("Pake /api or /user gan!");
 });
 
-app.use('/api', require('./data/database.controller'));
+app.use('/api', [require('./upload-data/upload-data.controller'), require('./data/database.controller')]);
 
 app.use(require('./_helpers/error-handler'));
 
