@@ -6,6 +6,8 @@ var mongoose = require('mongoose');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.set('port', (process.env.PORT || 3000));
+
 mongoose.connect('mongodb://bintang-db:Password1@ds047207.mlab.com:47207/project-one', 
     { reconnectTries: 100,
     reconnectInterval: 500,
@@ -34,6 +36,6 @@ app.use('/api', [require('./upload-data/upload-data.controller'), require('./dat
 
 app.use(require('./_helpers/error-handler'));
 
-app.listen(3000, function(){
-    console.log("listening port 3000...")
+app.listen(app.get('port'), function(){
+    console.log("listening on port "+ app.get('port') + "...");
 });
