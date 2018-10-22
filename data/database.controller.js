@@ -75,10 +75,9 @@ app.get('/search', (req, res, next) => {
         if(err){
             next(err);
         }
-        else if(!req.query.key){
-            res.status(400).end();
+        else{
+            res.json(data);
         }
-        res.json(data);
     });
 });
 

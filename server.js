@@ -29,10 +29,6 @@ app.use(express.static(__dirname + '/client/build'));
 // users handling route
 app.use('/users', require('./users/users.controller'));
 
-// app.get('/', function(req, res){
-//     res.send("Pake /api or /user gan!");
-// });
-
 app.use('/api', [require('./upload-data/upload-data.controller'), require('./data/database.controller')]);
 
 app.use(require('./_helpers/error-handler'));
