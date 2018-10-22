@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 5000));
 
 mongoose.connect('mongodb://bintang-db:Password1@ds047207.mlab.com:47207/project-one', 
     { reconnectTries: 100,
