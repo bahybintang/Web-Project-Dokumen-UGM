@@ -24,17 +24,22 @@ mongoose.connect('mongodb://bintang-db:Password1@ds047207.mlab.com:47207/project
 var db = mongoose.connection;
 
 app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + '/client/build'));
 
 // users handling route
 app.use('/users', require('./users/users.controller'));
 
-app.get('/', function(req, res){
-    res.send("Pake /api or /user gan!");
-});
+// app.get('/', function(req, res){
+//     res.send("Pake /api or /user gan!");
+// });
 
 app.use('/api', [require('./upload-data/upload-data.controller'), require('./data/database.controller')]);
 
 app.use(require('./_helpers/error-handler'));
+
+app.get('*', (req, res) => {
+    res.sendFile(__dirname + '/client/build/index.html');
+})
 
 app.listen(app.get('port'), function(){
     console.log("listening on port "+ app.get('port') + "...");
