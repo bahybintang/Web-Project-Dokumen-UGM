@@ -33,8 +33,12 @@ app.use('/api', [require('./upload-data/upload-data.controller'), require('./dat
 
 app.use(require('./_helpers/error-handler'));
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(__dirname + '/client/build/index.html');
+})
+
+app.get('*', (req, res) => {
+    res.sendFile(__dirname + '/client/build/404.html');
 })
 
 app.listen(app.get('port'), function(){
