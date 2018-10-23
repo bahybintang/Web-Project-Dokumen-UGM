@@ -19,6 +19,10 @@ app.post('/add', jwt.user(), (req, res, next) => {
     });
 });
 
+app.get('/updateBulk', jwt.admin(), (req, res) => {
+    res.json(DB.addDataBulk());
+})
+
 app.delete('/delete/:id', jwt.admin(), (req, res, next) => {
     DB.deleteData(req.params.id, function(err, data){
         if(err){
