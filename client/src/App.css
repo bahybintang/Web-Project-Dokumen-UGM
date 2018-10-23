@@ -1,6 +1,13 @@
 .search{
-    width: 100%;
-    display: block;
+    display: inline-block !important;
     padding-left: 10px;
     margin-bottom: 5px
+}
+
+.search-left{
+    width: 16%;
+}
+
+.search-right{
+    margin-right: 5px;
 }

@@ -27,17 +27,21 @@ module.exports = {
     searchData : function(req, callback, limit){
         var input = escapeRegExp(req.query.key);
         var key = new RegExp(input, "i");
-        var query = { $or: [{
-            fakultas: {
-                $regex: key
-            }},
-            {file_name: {
-                $regex: key
-            }},
-            {title: {
-                $regex: key
-            }}]
+        input = escapeRegExp(req.query.filter);
+        var filter = new RegExp(input, "i");
+            
+        var query = { $and: [
+            {fakultas: {$regex: filter}}, 
+            {$or: [
+                {file_name: {
+                    $regex: key
+                }},
+                {title: {
+                    $regex: key
+                }}]}
+            ]
         };
+        
         if(req.query._page === null && req.query._page_len === null){
             database.find(query, callback).limit(limit);
         }
