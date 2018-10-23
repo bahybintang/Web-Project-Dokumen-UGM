@@ -25,7 +25,8 @@ module.exports = {
         database.find(callback).skip(_page_len*(_page-1)).limit(_page_len-0);
     },
     searchData : function(req, callback, limit){
-        var key = new RegExp(req.query.key, "i");
+        var input = escapeRegExp(req.query.key);
+        var key = new RegExp(input, "i");
         var query = { $or: [{
             fakultas: {
                 $regex: key
@@ -47,4 +48,8 @@ module.exports = {
         }
         
     }
+}
+
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 }
