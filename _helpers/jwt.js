@@ -1,16 +1,15 @@
 const expressJwt = require('express-jwt');
-const config = require('../config.json');
 const userService = require('../users/user.service');
 
 module.exports = {user, admin};
 
+const secret = (process.env.secret || require('../config.json').secret);
+
 function user() {
-    const secret = config.secret;
     return expressJwt({ secret, isRevoked: isRevokedUser });
 }
 
 function admin(){
-    const secret = config.secret;
     return expressJwt({ secret, isRevoked: isRevokedAdmin });
 }
 

@@ -2,14 +2,15 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var config = require('./config.json');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.set('port', (process.env.PORT || 5000));
 
-mongoose.connect(config.connectionString, 
+var con = (process.env.connectionString || require('./config.json').connectionString);
+
+mongoose.connect(con, 
     { reconnectTries: 100,
     reconnectInterval: 500,
     autoReconnect: true, 
