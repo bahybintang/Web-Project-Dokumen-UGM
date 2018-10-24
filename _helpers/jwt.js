@@ -4,23 +4,6 @@ const userService = require('../users/user.service');
 
 module.exports = {user, admin};
 
-// function jwt() {
-//     const secret = config.secret;
-//     return expressJwt({ secret, isRevoked }).unless({
-//         path: [
-//             // public routes that don't require authentication
-//             '/users/authenticate',
-//             '/users/register',
-//             '/api/add',
-//             /^\/api\/update.*/,
-//             /^\/api\/delete.*/,
-//             /^\/api\/search.*/,
-//             /^\/api\/get.*/,
-//             /^\/api\/page.*/
-//         ]
-//     });
-// }
-
 function user() {
     const secret = config.secret;
     return expressJwt({ secret, isRevoked: isRevokedUser });

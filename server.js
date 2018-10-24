@@ -2,13 +2,14 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var config = require('./config.json');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.set('port', (process.env.PORT || 5000));
 
-mongoose.connect('mongodb://bintang-db:Password1@ds047207.mlab.com:47207/project-one', 
+mongoose.connect(config.connectionString, 
     { reconnectTries: 100,
     reconnectInterval: 500,
     autoReconnect: true, 
