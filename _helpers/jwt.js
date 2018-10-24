@@ -3,7 +3,7 @@ const userService = require('../users/user.service');
 
 module.exports = {user, admin};
 
-const secret = process.env.secret;
+const secret = require('../config.json').secret;
 
 function user() {
     return expressJwt({ secret, isRevoked: isRevokedUser });
