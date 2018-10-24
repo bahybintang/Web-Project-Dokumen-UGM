@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 app.set('port', (process.env.PORT || 5000));
 
-var con = (process.env.connectionString || require('./config.json').connectionString);
+var con = process.env.connectionString;
 
 mongoose.connect(con, 
     { reconnectTries: 100,
