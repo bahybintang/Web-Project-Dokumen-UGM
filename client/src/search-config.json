@@ -1,0 +1,90 @@
+{ 
+    "fakultas": [
+        {"value": "", "label": "Any"},
+        {"value": "mipa", "label": "MIPA"},
+        {"value": "teknik", "label": "Teknik"},
+        {"value": "fkkmk", "label": "FKKMK"},
+        {"value": "kehutanan", "label": "Kehutanan"},
+        {"value": "biologi", "label": "Biologi"},
+        {"value": "feb", "label": "Ekonomika dan Bisnis"},
+        {"value": "farmasi", "label": "Farmasi"},
+        {"value": "filsafat", "label": "Filsafat"},
+        {"value": "geografi", "label": "Geografi"},
+        {"value": "hukum", "label": "Hukum"},
+        {"value": "fib", "label": "Ilmu Budaya"},
+        {"value": "fisipol", "label": "Ilmu Sosial dan Ilmu Politik"},
+        {"value": "fkg", "label": "Kedokteran Gigi"},
+        {"value": "fkh", "label": "Kedokteran Hewan"},
+        {"value": "pertanian", "label": "Pertanian"},
+        {"value": "peternakan", "label": "Peternakan"},
+        {"value": "psikologi", "label": "Psikologi"},
+        {"value": "ftp", "label": "Teknologi Pertanian"},
+        {"value": "Sekolah Pasca Sarjana", "label": "Sekolah Pasca Sarjana"},
+        {"value": "sv", "label": "Sekolah Vokasi"}
+    ],
+
+    "departemen": {
+        "mipa": [
+            {"value": "", "label": "Any"},
+            {"value": "fisika", "label": "Fisika"},
+            {"value": "matematika", "label": "Matematika"},
+            {"value": "dike", "label": "Ilmu Komputer dan Elektronika"},
+            {"value": "kimia", "label": "Kimia"}
+        ],
+        "teknik": [
+            {"value": "", "label": "Any"},
+            {"value": "arsi", "label": "Arsitektur dan Perencanaan"},
+            {"value": "teti", "label": "Elektro dan Teknologi Informasi"},
+            {"value": "geodesi", "label": "Geodesi"},
+            {"value": "geologi", "label": "Geologi"},
+            {"value": "kimia", "label": "Kimia"},
+            {"value": "nuklirfisika", "label": "Nuklir dan Fisika"},
+            {"value": "mesinindustri", "label": "Mesin dan Industri"},
+            {"value": "sipillingkungan", "label": "Sipil dan Lingkungan"}
+        ],
+        "feb": [
+            {"value": "", "label": "Any"},
+            {"value": "akuntansi", "label": "Akuntansi"},
+            {"value": "ekonomi", "label": "ekonomi"},
+            {"value": "manajemen", "label": "Manajemen"}
+        ],
+        "biologi": [
+            {"value": "", "label": "Any"},
+            {"value": "biologi", "label": "Biologi"}
+        ],
+        "farmasi": [
+            {"value": "", "label": "Any"},
+            {"value": "biologifarmasi", "label": "Biologi Farmasi"},
+            {"value": "farmakologi", "label": "Farmakologi & Farmasi Klinik"},
+            {"value": "farmasetika", "label": "Farmasetika"},
+            {"value": "kimiafaramasi", "label": "Kimia Faramasi"}
+        ],
+        "filsafat": [
+            {"value": "", "label": "Any"},
+            {"value": "filsafatagama", "label": "Filsafat Agama"},
+            {"value": "filsafatbarat", "label": "Filsafat Barat"},
+            {"value": "filsafattimur", "label": "Filsafat Timur"}
+        ],
+        "geografi": [
+            {"value": "", "label": "Any"},
+            {"value": "geografilingkungan", "label": "Geografi Lingkungan"},
+            {"value": "geografipembangunan", "label": "Geografi Pembangunan"},
+            {"value": "sig", "label": "Sains Informasi Geografi"}
+        ],
+        "hukum": [
+            {"value": "", "label": "Any"},
+            {"value": "hukumadat", "label": "Hukum Adat"},
+            {"value": "hukumadministrasinegara", "label": "Hukum Administrasi Negara"},
+            {"value": "hukumagraria", "label": "Hukum Agraria"},
+            {"value": "hukumdagang", "label": "Hukum Dagang"},
+            {"value": "hukuminterasional", "label": "Hukum Internasional"},
+            {"value": "hukumislam", "label": "Hukum Islam"},
+            {"value": "hukumlingkungan", "label": "Hukum Lingkungan"},
+            {"value": "hukumpajak", "label": "Hukum Pajak"},
+            {"value": "hukumpedata", "label": "Hukum Pedata"},
+            {"value": "hukumpidana", "label": "Hukum Pidana"},
+            {"value": "hukumtatanegara", "label": "Hukum Tata Negara"}
+        ]
+        
+    }
+}

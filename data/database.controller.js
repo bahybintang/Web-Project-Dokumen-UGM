@@ -72,7 +72,7 @@ app.post('/update/:id', jwt.user(), (req, res, next) => {
     });
 });
 
-// search/?key=val&_page=val&_page_len=val
+// search/?key=val&fak=val&dep=val&_page=val&_page_len=val
 // _page dan _page_len optional
 app.get('/search', (req, res, next) => {
     DB.searchData(req, function(err, data){

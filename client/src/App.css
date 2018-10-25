@@ -1,13 +1,8 @@
 .search{
     display: inline-block !important;
-    padding-left: 10px;
     margin-bottom: 5px
 }
 
-.search-left{
-    width: 16%;
-}
-
-.search-right{
-    margin-right: 5px;
+.react-select{
+    padding: 0px 0px 0px 5px;
 }

@@ -27,11 +27,14 @@ module.exports = {
     searchData : function(req, callback, limit){
         var input = escapeRegExp(req.query.key);
         var key = new RegExp(input, "i");
-        input = escapeRegExp(req.query.filter);
-        var filter = new RegExp(input, "i");
-            
+        input = escapeRegExp(req.query.fak);
+        var fak = new RegExp(input, "i");
+        input = escapeRegExp(req.query.dep);
+        var dep = new RegExp(input, "i");
+
         var query = { $and: [
-            {fakultas: {$regex: filter}}, 
+            {fakultas: {$regex: fak}},
+            {departemen: {$regex: dep}}, 
             {$or: [
                 {file_name: {
                     $regex: key

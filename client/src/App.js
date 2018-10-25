@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import ShowSearchData from './showSearchData'
+import ShowSearchData from './showSearchData';
+import Select from 'react-select';
 import './App.css';
+import config from './search-config.json';
+
+const fakultasOptions = config.fakultas;
+const departemenOptions = config.departemen;
 
 class App extends Component {
   constructor(props){
@@ -8,8 +13,9 @@ class App extends Component {
     this.state = {
       response: [],
       isOkay: false,
-      filter: "",
-      key: ""
+      fak: null,
+      key: "",
+      dep: null
     };
   }
 
@@ -32,33 +38,50 @@ class App extends Component {
     this.searchData();
   }
 
-  handleEventFilter = async(event) => {
-    await this.setState({filter: event.target.value});
+  handleEventFak = async(event) => {
+    this.state.dep = {value: "", label: "Departemen"};
+    await this.setState({fak: event});
+    this.searchData();
+  }
+
+  handleEventDep = async(event) => {
+    await this.setState({dep: event});
     this.searchData();
   }
 
   async searchData(){
-    var fetchString = 'api/search/?key=' + this.state.key + '&filter=' + this.state.filter;
+    var fetchString = 'api/search/?key=' + this.state.key + '&fak=' + this.state.fak.value + '&dep=' + this.state.dep.value;
 
     var res = await fetch(fetchString);
     var data = await res.json();
     if(data){
-      this.setState({response : data, isOkay : true});
+      await this.setState({response : data, isOkay : true});
     }
   }
 
   render() {
     return (
       <div>
-        <input className="search search-right form-control col-sm-10" type="text" placeholder="Search" onChange={this.state.isOkay ? this.handleEventKey.bind(this) : function(){}}/>
-        <select className="search search-left form-control col-sm-3" onChange={this.state.isOkay ? this.handleEventFilter.bind(this) : function(){}}>
-          <option defaultValue="Fakultas" selected disabled hidden>Fakultas</option>
-          <option value="">Any</option>
-          <option value="mipa">MIPA</option>
-          <option value="teknik">Teknik</option>
-          <option value="FKKMK">FKKMK</option>
-          <option value="Kehutanan">Kehutanan</option>
-        </select>
+        <input className="search form-control col-sm-8" type="text" placeholder="Search" onChange={this.state.isOkay ? this.handleEventKey.bind(this) : function(){}}/>
+
+        <Select 
+          placeholder="Fakultas"
+          value={this.state.fak}
+          options={fakultasOptions}
+          onChange={this.handleEventFak}
+          className="search react-select col-sm-2"
+          isSearchable={true}
+        />
+
+        <Select 
+          placeholder="Departemen"
+          value={this.state.dep}
+          options={departemenOptions[this.state.fak !== null ? this.state.fak.value : {}]}
+          onChange={this.handleEventDep}
+          className="search react-select col-sm-2"
+          isSearchable={true}
+        />
+
         <div className="table-responsive">
           <table className="table">
             <thead className="thead-light">
