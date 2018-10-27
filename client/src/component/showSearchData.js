@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 
 class ShowSearchData extends Component {
-    
-    constructor(props){
-        super(props);
-        console.log("data added");
-    }
 
     iconGenerate = (s) => {
         if(s === 'pdf'){
