@@ -4,6 +4,7 @@ import Select from 'react-select';
 import '../css/home.css';
 import config from '../search-config.json';
 import Header from './header';
+import withAuthAdmin from './utils/withAuth';
 
 const fakultasOptions = config.fakultas;
 const departemenOptions = config.departemen;
@@ -106,4 +107,4 @@ class admin extends Component {
   }
 }
 
-export default admin;
+export default withAuthAdmin(admin);

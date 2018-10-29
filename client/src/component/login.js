@@ -15,7 +15,14 @@ class Login extends Component {
   }
 
   componentWillMount(){
-    if(this.Auth.loggedIn()) this.props.history.replace('/');
+    if(this.Auth.loggedIn()){
+      if(this.Auth.getProfile().admin){
+        this.props.history.replace("/admin");
+      }
+      else{
+        this.props.history.replace('/');
+      }
+    }
   }
 
   handleUsername = async (e) => {
@@ -35,7 +42,12 @@ class Login extends Component {
       await this.setState({warning: response.message});
     }
     else{
-      this.props.history.replace('/');
+      if(this.Auth.getProfile().admin){
+        this.props.history.replace("/admin");
+      }
+      else{
+        this.props.history.replace('/');
+      }
     }
   }
 
