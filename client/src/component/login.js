@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './css/login.css';
-import Redirect from 'react-router-dom/Redirect';
+import '../css/login.css';
+import AuthService from './utils/AuthService';
 
 class Login extends Component {
 
@@ -9,16 +9,14 @@ class Login extends Component {
     this.state = {
       username : "",
       password : "",
-      warning : null,
-      redirect : false
+      warning : null
     }
+    this.Auth = new AuthService();
   }
 
-  // componentDidMount = async() => {
-  //   if(localStorage.getItem("dokakademik")){
-  //     await this.setState({redirect : true});
-  //   }
-  // }
+  componentWillMount(){
+    if(this.Auth.loggedIn()) this.props.history.replace('/');
+  }
 
   handleUsername = async (e) => {
     await this.setState({username: e.target.value});
@@ -31,44 +29,18 @@ class Login extends Component {
   onSubmit = async(e) => {
     e.preventDefault();
 
-    var details = {
-      "username" : this.state.username,
-      "password" : this.state.password
-    }
+    var response = await this.Auth.login(this.state.username, this.state.password);
 
-    var formBody = [];
-    for (var property in details) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent(details[property]);
-      formBody.push(encodedKey + "=" + encodedValue);
-    }
-    formBody = formBody.join("&");
-
-    var response = await fetch('/users/authenticate', {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: formBody
-    });
-
-    var body = await response.json();
-    
-    if(body.message){
-      await this.setState({warning: body.message});
+    if(response.message){
+      await this.setState({warning: response.message});
     }
     else{
-      localStorage.setItem("dok_akademik", body.token);
-      await this.setState({redirect : true});
+      this.props.history.replace('/');
     }
-
   }
 
   render() {
-    if(this.state.redirect){
-      return (<Redirect to="/"/>);
-    }
-    else if(this.state.warning){
+    if(this.state.warning){
       return (
         <div style={{width:"40%", display:"block", margin:"auto"}}>
           <form className="form-signin" onSubmit={this.onSubmit}>

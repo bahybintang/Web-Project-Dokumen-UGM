@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ShowSearchData from './showSearchData';
+import ShowSearchDataAdmin from './showSearchDataAdmin';
 import Select from 'react-select';
 import '../css/home.css';
 import config from '../search-config.json';
@@ -8,7 +8,7 @@ import Header from './header';
 const fakultasOptions = config.fakultas;
 const departemenOptions = config.departemen;
 
-class home extends Component {
+class admin extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -92,10 +92,12 @@ class home extends Component {
                 <th style={{width:"40%"}}>Title</th>
                 <th className="text-center" style={{width:"10%"}}>File Type</th>
                 <th className="text-center" style={{width:"20%"}}>Download</th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
-              {this.state.isOkay ? <ShowSearchData data={this.state.response}/> : <tr><td colSpan="4" className="text-center">Loading data!</td></tr>}
+              {this.state.isOkay ? <ShowSearchDataAdmin data={this.state.response}/> : <tr><td colSpan="4" className="text-center">Loading data!</td></tr>}
             </tbody>
           </table>
         </div>
@@ -104,4 +106,4 @@ class home extends Component {
   }
 }
 
-export default home;
+export default admin;
