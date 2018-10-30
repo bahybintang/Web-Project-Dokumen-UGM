@@ -51,7 +51,11 @@ class home extends Component {
   }
 
   async searchData(){
-    var fetchString = 'api/search/?key=' + this.state.key + '&fak=' + this.state.fak.value + '&dep=' + this.state.dep.value;
+    var key = this.state.key || "";
+    var fak = this.state.fak || {value : ""};
+    var dep = this.state.dep || {value : ""};
+    
+    var fetchString = 'api/search/?key=' + key + '&fak=' + fak.value + '&dep=' + dep.value;
 
     var res = await fetch(fetchString);
     var data = await res.json();

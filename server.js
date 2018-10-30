@@ -39,6 +39,10 @@ app.get(['/', '/login'], (req, res) => {
     res.sendFile(__dirname + '/client/build/index.html');
 })
 
+app.get(['/admin'], (req, res) => {
+    res.sendFile(__dirname + '/client/build/index.html');
+})
+
 app.get('*', (req, res) => {
     res.sendFile(__dirname + '/client/build/404.html');
 })
