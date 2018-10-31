@@ -14,7 +14,7 @@ function admin(){
 }
 
 async function isRevokedUser(req, payload, done) {
-    const user = await userService.getById(payload.sub);
+    const user = await userService.getById(payload.id);
     // revoke token if user no longer exists
     if (!user) {
         return done(null, true);
@@ -24,7 +24,7 @@ async function isRevokedUser(req, payload, done) {
 };
 
 async function isRevokedAdmin(req, payload, done) {
-    const user = await userService.getById(payload.sub);
+    const user = await userService.getById(payload.id);
     // revoke token if user no longer exists
     if (!user) {
         return done(null, true);

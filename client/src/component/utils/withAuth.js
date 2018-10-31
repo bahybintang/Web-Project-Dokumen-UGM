@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import AuthService from './AuthService';
-import Home from '../home';
+import React, { Component } from 'react'
+import AuthService from './AuthService'
+import Home from '../home'
 
 export default function withAuthAdmin(AuthComponent){
-    const Auth = new AuthService();
+    const Auth = new AuthService()
     return class AuthWrapped extends Component {
         constructor() {
-            super();
+            super()
             this.state = {
                 user: null
             }
@@ -46,10 +46,10 @@ export default function withAuthAdmin(AuthComponent){
 }
 
 export function withAuthUser(AuthComponent){
-    const Auth = new AuthService();
+    const Auth = new AuthService()
     return class AuthWrapped extends Component {
         constructor() {
-            super();
+            super()
             this.state = {
                 user: null
             }

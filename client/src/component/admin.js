@@ -1,67 +1,67 @@
-import React, { Component } from 'react';
-import ShowSearchDataAdmin from './showSearchDataAdmin';
-import Select from 'react-select';
-import '../css/home.css';
-import config from '../search-config.json';
-import Header from './header';
-import withAuthAdmin from './utils/withAuth';
+import React, { Component } from 'react'
+import ShowSearchDataAdmin from './showSearchDataAdmin'
+import Select from 'react-select'
+import '../css/home.css'
+import config from '../search-config.json'
+import Header from './header'
+import withAuthAdmin from './utils/withAuth'
 
-const fakultasOptions = config.fakultas;
-const departemenOptions = config.departemen;
+const fakultasOptions = config.fakultas
+const departemenOptions = config.departemen
 
 class admin extends Component {
   constructor(props){
-    super(props);
+    super(props)
     this.state = {
       response: [],
       isOkay: false,
       fak: null,
       key: "",
       dep: null
-    };
+    }
   }
 
   componentDidMount() {
     this.callApi()
       .then(res => this.setState({ response: res, isOkay: true }))
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
   }
 
   callApi = async () => {
-    const response = await fetch('api/get');
-    const body = await response.json();
+    const response = await fetch('api/get')
+    const body = await response.json()
 
-    if (response.status !== 200) throw Error(body.message);
-    return body;
-  };
+    if (response.status !== 200) throw Error(body.message)
+    return body
+  }
 
   handleEventKey = async(event) => {
-    await this.setState({key: event.target.value});
-    this.searchData();
+    await this.setState({key: event.target.value})
+    this.searchData()
   }
 
   handleEventFak = async(event) => {
-    this.state.dep = {value: "", label: "Departemen"};
-    await this.setState({fak: event});
-    this.searchData();
+    this.state.dep = {value: "", label: "Departemen"}
+    await this.setState({fak: event})
+    this.searchData()
   }
 
   handleEventDep = async(event) => {
-    await this.setState({dep: event});
-    this.searchData();
+    await this.setState({dep: event})
+    this.searchData()
   }
 
   async searchData(){
-    var key = this.state.key || "";
-    var fak = this.state.fak || {value : ""};
-    var dep = this.state.dep || {value : ""};
+    var key = this.state.key || ""
+    var fak = this.state.fak || {value : ""}
+    var dep = this.state.dep || {value : ""}
     
-    var fetchString = 'api/search/?key=' + key + '&fak=' + fak.value + '&dep=' + dep.value;
+    var fetchString = 'api/search/?key=' + key + '&fak=' + fak.value + '&dep=' + dep.value
     
-    var res = await fetch(fetchString);
-    var data = await res.json();
+    var res = await fetch(fetchString)
+    var data = await res.json()
     if(data){
-      await this.setState({response : data, isOkay : true});
+      await this.setState({response : data, isOkay : true})
     }
   }
 
@@ -107,8 +107,8 @@ class admin extends Component {
           </table>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default withAuthAdmin(admin);
+export default withAuthAdmin(admin)

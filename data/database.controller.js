@@ -6,6 +6,8 @@ var jwt = require('../_helpers/jwt');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+var success = { success : true };
+var fail = { success : false };
 
 app.post('/add', jwt.user(), (req, res, next) => {
     DB.addData(req.body, function(err){
@@ -14,7 +16,7 @@ app.post('/add', jwt.user(), (req, res, next) => {
         }
         else{
             console.log("data added");
-            res.status(200).end();
+            res.status(200).json(success);
         }
     });
 });
@@ -30,11 +32,11 @@ app.delete('/delete/:id', jwt.admin(), (req, res, next) => {
         }
         else if(data.n){
             console.log("data " + req.params.id + " deleted");
-            res.status(200).end();
+            res.status(200).json(success);
         }
         else{
             console.log("data not found!");
-            res.status(404).end();
+            res.status(404).json(fail);
         }
     });
 });
@@ -64,10 +66,10 @@ app.post('/update/:id', jwt.user(), (req, res, next) => {
         }
         else if(data){
             console.log("data " + req.params.id + " updated!");
-            res.status(200).end();
+            res.status(200).json(success);
         }
         else{
-            res.status(404).end();
+            res.status(404).json(fail);
         }
     });
 });
