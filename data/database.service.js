@@ -17,7 +17,9 @@ module.exports = {
     },
     updateData : function(id, data, options, callback){
         var query = {'_id': id};
-        database.findByIdAndUpdate(query, JSON.stringify(data), options, callback);
+        delete data._id
+        delete data.__v
+        database.findByIdAndUpdate(query, { $set: data }, options, callback);
     },
     getPage : function(req, callback){
         var _page = req.query._page;

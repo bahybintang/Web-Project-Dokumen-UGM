@@ -9,15 +9,19 @@ const fakultasOptions = config.fakultas;
 const departemenOptions = config.departemen;
 
 class home extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       response: [],
       isOkay: false,
-      fak: null,
+      fak: "",
       key: "",
-      dep: null
+      dep: ""
     };
+    this.handleEvent = this.handleEvent.bind(this)
+    this.searchData = this.searchData.bind(this)
+    this.handleEventFak = this.handleEventFak.bind(this)
+    this.handleEventDep = this.handleEventDep.bind(this)
   }
 
   componentDidMount() {
@@ -34,55 +38,50 @@ class home extends Component {
     return body;
   };
 
-  handleEventKey = async(event) => {
-    await this.setState({key: event.target.value});
+  handleEvent = async (e) => {
+    await this.setState({ [e.target.name]: e.target.value });
     this.searchData();
   }
 
-  handleEventFak = async(event) => {
-    this.state.dep = {value: "", label: "Departemen"};
-    await this.setState({fak: event});
+  handleEventFak = async (e) => {
+    await this.setState({ fak: e.value });
     this.searchData();
   }
 
-  handleEventDep = async(event) => {
-    await this.setState({dep: event});
+  handleEventDep = async (e) => {
+    await this.setState({ dep: e.value });
     this.searchData();
   }
 
-  async searchData(){
-    var key = this.state.key || "";
-    var fak = this.state.fak || {value : ""};
-    var dep = this.state.dep || {value : ""};
-    
-    var fetchString = 'api/search/?key=' + key + '&fak=' + fak.value + '&dep=' + dep.value;
+  async searchData() {
+    var fetchString = 'api/search/?key=' + this.state.key + '&fak=' + this.state.fak + '&dep=' + this.state.dep;
 
     var res = await fetch(fetchString);
     var data = await res.json();
-    if(data){
-      await this.setState({response : data, isOkay : true});
+    if (data) {
+      await this.setState({ response: data, isOkay: true });
     }
   }
 
   render() {
     return (
       <div>
-        <Header/>
-        <input className="search form-control col-sm-8" type="text" placeholder="Search" onChange={this.state.isOkay ? this.handleEventKey.bind(this) : function(){}}/>
+        <Header />
+        <input name="key" className="search form-control col-sm-8" type="text" placeholder="Search" onChange={this.handleEvent} />
 
-        <Select 
+        <Select
           placeholder="Fakultas"
-          value={this.state.fak}
+          value={this.state.fak.value}
           options={fakultasOptions}
           onChange={this.handleEventFak}
           className="search react-select col-sm-2"
           isSearchable={true}
         />
 
-        <Select 
+        <Select
           placeholder="Departemen"
-          value={this.state.dep}
-          options={departemenOptions[this.state.fak !== null ? this.state.fak.value : {}]}
+          value={this.state.dep.value}
+          options={departemenOptions[this.state.fak]}
           onChange={this.handleEventDep}
           className="search react-select col-sm-2"
           isSearchable={true}
@@ -92,14 +91,14 @@ class home extends Component {
           <table className="table">
             <thead className="thead-light">
               <tr>
-                <th style={{width:"10%"}}>Fakultas</th>
-                <th style={{width:"40%"}}>Title</th>
-                <th className="text-center" style={{width:"10%"}}>File Type</th>
-                <th className="text-center" style={{width:"20%"}}>Download</th>
+                <th style={{ width: "10%" }}>Fakultas</th>
+                <th style={{ width: "40%" }}>Title</th>
+                <th className="text-center" style={{ width: "10%" }}>File Type</th>
+                <th className="text-center" style={{ width: "20%" }}>Download</th>
               </tr>
             </thead>
             <tbody>
-              {this.state.isOkay ? <ShowSearchData data={this.state.response}/> : <tr><td colSpan="4" className="text-center">Loading data!</td></tr>}
+              {this.state.isOkay ? <ShowSearchData data={this.state.response} /> : <tr><td colSpan="4" className="text-center">Loading data!</td></tr>}
             </tbody>
           </table>
         </div>

@@ -15,7 +15,8 @@ class Header extends Component {
                             </td>
                             <td>
                                 <h1>Dokumen Akademik UGM</h1> 
-                                <p>Semua dokumen akademik UGM ada disini!</p> 
+                                <p>Semua dokumen akademik UGM ada disini!</p>
+                                <p>To my beloved debugger, you can login with (username: admin, password: admin) xD</p>
                             </td>
                         </tr>
                     </tbody>

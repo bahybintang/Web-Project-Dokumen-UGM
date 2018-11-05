@@ -60,7 +60,7 @@ app.get('/get/:id', (req, res, next) => {
 });
 
 app.post('/update/:id', jwt.user(), (req, res, next) => {
-    DB.updateData(req.params.id, req.body, {}, function(err, data){
+    DB.updateData(req.params.id, req.body, {new : true}, function(err, data){
         if(err){
             next(err);
         }

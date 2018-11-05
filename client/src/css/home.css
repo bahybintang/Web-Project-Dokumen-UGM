@@ -6,3 +6,7 @@
 .react-select{
     padding: 0px 0px 0px 5px;
 }
+
+.select{
+    padding-left: 10px;
+}
