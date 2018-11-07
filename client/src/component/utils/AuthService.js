@@ -64,6 +64,10 @@ export default class AuthService {
         return decode(this.getToken());
     }
 
+    getUsername() {
+        return this.getProfile().username
+    }
+
     isAdmin(){
         if(this.loggedIn()){
             return !!this.getProfile().admin

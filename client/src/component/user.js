@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import ShowSearchDataAdmin from './showSearchDataAdmin'
+import ShowSearchDataUser from './showSearchDataUser'
 import Select from 'react-select'
 import '../css/home.css'
 import config from '../search-config.json'
 import Header from './header'
-import withAuthAdmin from './utils/withAuth'
+import { withAuthUser } from './utils/withAuth'
 import UpdateModals from './updateModal'
 import AddModals from './addModal'
 import ApiService from './utils/ApiCall'
@@ -13,7 +13,7 @@ const Api = new ApiService()
 const fakultasOptions = config.fakultas
 const departemenOptions = config.departemen
 
-class admin extends Component {
+class user extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -97,7 +97,7 @@ class admin extends Component {
   }
 
   performUpdate = async () => {
-    await Api.updateData(this.state.updateItem)
+    await Api.requestUpdateData(this.state.updateItem)
   }
 
   // Add Data
@@ -116,7 +116,7 @@ class admin extends Component {
   }
 
   performAdd = async () => {
-    await Api.addData(this.state.addItem)
+    await Api.requestAddData(this.state.addItem)
   }
 
   render() {
@@ -153,11 +153,11 @@ class admin extends Component {
                 <th style={{ width: "40%" }}>Title</th>
                 <th className="text-center" style={{ width: "10%" }}>File Type</th>
                 <th className="text-center" style={{ width: "20%" }}>Download</th>
-                <th onClick={this.toggleAdd} colSpan="2" className="text-center"><button className="btn btn-success btn-sm">Add +</button></th>
+                <th onClick={this.toggleAdd} colSpan="2" className="text-center"><button className="btn btn-success btn-sm">Req. Add +</button></th>
               </tr>
             </thead>
             <tbody>
-              {this.state.isOkay ? <ShowSearchDataAdmin openUpdate={this.toggleUpdate} data={this.state.response} /> : <tr><td colSpan="4" className="text-center">Loading data!</td></tr>}
+              {this.state.isOkay ? <ShowSearchDataUser openUpdate={this.toggleUpdate} data={this.state.response} /> : <tr><td colSpan="4" className="text-center">Loading data!</td></tr>}
             </tbody>
           </table>
         </div>
@@ -166,4 +166,4 @@ class admin extends Component {
   }
 }
 
-export default withAuthAdmin(admin)
+export default withAuthUser(user)

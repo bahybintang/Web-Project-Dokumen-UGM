@@ -37,17 +37,24 @@ class Navbar extends Component {
                             <a className="nav-link" href="/admin">Admin</a>
                         </li>
                         <li className="nav-item">
+                            <a className="nav-link" href="/request">Request</a>
+                        </li>
+                        <li className="nav-item">
                             <a className="nav-link" onClick={this.handleLogout} href="/">Logout</a>
                         </li>
                     </div>
-
                 )
             }
             else {
                 return (
-                    <li className="nav-item">
-                        <a className="nav-link" onClick={this.handleLogout} href="/">Logout</a>
-                    </li>
+                    <div className="collapse navbar-collapse">
+                        <li className="nav-item">
+                            <a className="nav-link" href="/user">User</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" onClick={this.handleLogout} href="/">Logout</a>
+                        </li>
+                    </div>
                 )
             }
         }

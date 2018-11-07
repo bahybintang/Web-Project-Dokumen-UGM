@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
-import ShowSearchDataAdmin from './showSearchDataAdmin'
+import ShowRequest from './showRequest'
 import Select from 'react-select'
 import '../css/home.css'
 import config from '../search-config.json'
 import Header from './header'
 import withAuthAdmin from './utils/withAuth'
-import UpdateModals from './updateModal'
-import AddModals from './addModal'
+import ReviewModals from './reviewModal'
 import ApiService from './utils/ApiCall'
 
 const Api = new ApiService()
 const fakultasOptions = config.fakultas
 const departemenOptions = config.departemen
 
-class admin extends Component {
+class request extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,23 +21,16 @@ class admin extends Component {
       fak: "",
       key: "",
       dep: "",
-      update: false,
-      updateItem: null,
-      addItem: {
-        fakultas: "",
-        departemen: "",
-        url: "",
-        file_name: "",
-        title: ""
-      },
-      add: false
+      review: false,
+      item: {
+          item: {}
+      }
     };
     this.handleEvent = this.handleEvent.bind(this)
     this.searchData = this.searchData.bind(this)
     this.handleEventFak = this.handleEventFak.bind(this)
     this.handleEventDep = this.handleEventDep.bind(this)
-    this.toggleUpdate = this.toggleUpdate.bind(this)
-    this.onChangeUpdate = this.onChangeUpdate.bind(this)
+    this.toggleReview = this.toggleReview.bind(this)
   }
 
   componentDidMount = () => {
@@ -48,7 +40,7 @@ class admin extends Component {
   }
 
   callApi = async () => {
-    const response = await fetch('api/get');
+    const response = await fetch('api/request/get');
     const body = await response.json();
 
     if (response.status !== 200) throw Error(body.message);
@@ -71,7 +63,7 @@ class admin extends Component {
   }
 
   searchData = async () => {
-    var fetchString = 'api/search/?key=' + this.state.key + '&fak=' + this.state.fak + '&dep=' + this.state.dep;
+    var fetchString = 'api/request/search/?key=' + this.state.key + '&fak=' + this.state.fak + '&dep=' + this.state.dep;
 
     var res = await fetch(fetchString);
     var data = await res.json();
@@ -80,50 +72,34 @@ class admin extends Component {
     }
   }
 
-  // Update Data
-  onChangeUpdate = async (e) => {
-    e.persist()
-    await this.setState(prevState => ({
-      updateItem: {
-        ...prevState.updateItem,
-        [e.target.name]: e.target.value
-      }
-    }))
+  toggleReview = async (e) => {
+    if(e.item) await this.setState({ review: !this.state.review, item: e })
+    else await this.setState({ review: !this.state.review })
   }
 
-  toggleUpdate = async (e) => {
-    if(e.file_name) await this.setState({ update: !this.state.update, updateItem: e })
-    else await this.setState({ update: !this.state.update })
-  }
-
-  performUpdate = async () => {
-    await Api.updateData(this.state.updateItem)
-  }
-
-  // Add Data
-  onChangeAdd = async (e) => {
-    e.persist()
-    await this.setState(prevState => ({
-      addItem: {
-        ...prevState.addItem,
-        [e.target.name]: e.target.value
-      }
-    }))
-  }
-
-  toggleAdd = async () => {
-    await this.setState({ add: !this.state.add })
-  }
-
-  performAdd = async () => {
-    await Api.addData(this.state.addItem)
+  acceptReview = (e) => {
+    console.log(e)
+    if(e.type === "update"){
+        if(Api.updateData(e.item)){
+            Api.deleteRequestData(e._id)
+        }
+    }
+    else if(e.type === "delete"){
+        if(Api.deleteData(e.item._id)){
+            Api.deleteRequestData(e._id)
+        }
+    }
+    else if(e.type === "add"){
+        if(Api.addData(e.item)){
+            Api.deleteRequestData(e._id)
+        }
+    }
   }
 
   render() {
     return (
       <div>
-        <UpdateModals performUpdate={this.performUpdate} onChange={this.onChangeUpdate} updateItem={this.state.updateItem} isOpen={this.state.update} toggleUpdate={this.toggleUpdate} />
-        <AddModals performAdd={this.performAdd} onChange={this.onChangeAdd} addItem={this.state.addItem} isOpen={this.state.add} toggleAdd={this.toggleAdd} />
+        <ReviewModals item={this.state.item.item} isOpen={this.state.review} toggleReview={this.toggleReview} />
         <Header />
         <input name="key" className="search form-control col-sm-8" type="text" placeholder="Search" onChange={this.handleEvent} />
 
@@ -149,15 +125,18 @@ class admin extends Component {
           <table className="table">
             <thead className="thead-light">
               <tr>
-                <th style={{ width: "10%" }}>Fakultas</th>
-                <th style={{ width: "40%" }}>Title</th>
-                <th className="text-center" style={{ width: "10%" }}>File Type</th>
-                <th className="text-center" style={{ width: "20%" }}>Download</th>
-                <th onClick={this.toggleAdd} colSpan="2" className="text-center"><button className="btn btn-success btn-sm">Add +</button></th>
+                <th className="col-md-auto">Fakultas</th>
+                <th className="col-md-auto">Title</th>
+                <th className="text-center col-md-auto">User</th>
+                <th className="text-center col-md-auto">Date Requested</th>
+                <th className="text-center col-md-auto">Time Requested</th>
+                <th className="text-center col-md-auto">Request Type</th>
+                <th className="col-md-auto"></th>
+                <th className="col-md-auto"></th>
               </tr>
             </thead>
             <tbody>
-              {this.state.isOkay ? <ShowSearchDataAdmin openUpdate={this.toggleUpdate} data={this.state.response} /> : <tr><td colSpan="4" className="text-center">Loading data!</td></tr>}
+              {this.state.isOkay ? <ShowRequest acceptReview={this.acceptReview} openReview={this.toggleReview} data={this.state.response} /> : <tr><td colSpan="4" className="text-center">Loading data!</td></tr>}
             </tbody>
           </table>
         </div>
@@ -166,4 +145,4 @@ class admin extends Component {
   }
 }
 
-export default withAuthAdmin(admin)
+export default withAuthAdmin(request)

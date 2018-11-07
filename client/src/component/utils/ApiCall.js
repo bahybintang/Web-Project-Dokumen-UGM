@@ -49,4 +49,88 @@ export default class ApiCall {
             return false
         }
     }
+
+    requestUpdateData = async(e) => {
+        var updateItem = {
+            username: Auth.getUsername(),
+            type: "update",
+            item: e
+        }
+        console.log(updateItem)
+
+        var response = await Auth.fetch('/api/request/add', {
+            method: "POST",
+            body: JSON.stringify(updateItem)
+        });
+
+        if(response.success){
+            alert("Data update requested!")
+            window.location = "/user"
+            return true
+        }
+        else {
+            alert(response.message)
+            return false
+        }
+    }
+
+    requestAddData = async(e) => {
+        var addItem = {
+            username: Auth.getUsername(),
+            type: "add",
+            item: e
+        }
+        console.log(addItem)
+
+        var response = await Auth.fetch('/api/request/add', {
+            method: "POST",
+            body: JSON.stringify(addItem)
+        });
+
+        if(response.success){
+            alert("Data add requested!")
+            window.location = "/user"
+            return true
+        }
+        else {
+            alert(response.message)
+            return false
+        }
+    }
+
+    requestDeleteData = async(e) => {
+        var addItem = {
+            username: Auth.getUsername(),
+            type: "delete",
+            item: e
+        }
+        console.log(addItem)
+
+        var response = await Auth.fetch('/api/request/add', {
+            method: "POST",
+            body: JSON.stringify(addItem)
+        });
+
+        if(response.success){
+            alert("Data delete requested!")
+            window.location = "/user"
+            return true
+        }
+        else {
+            alert(response.message)
+            return false
+        }
+    }
+
+    deleteRequestData = async(s) => {
+        var response = await Auth.fetch('/api/request/delete/' + s, { method : "DELETE" })
+        if(response.success){
+            console.log("request deleted")
+            return true
+        }
+        else {
+            alert(response.message)
+            return false
+        }
+    }
 }
