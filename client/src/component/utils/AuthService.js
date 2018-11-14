@@ -17,7 +17,21 @@ export default class AuthService {
                 password
             })
         }).then(res => {
-            this.setToken(res.token) // Setting the token in localStorage
+            if(!res.message) this.setToken(res.token) // Setting the token in localStorage
+            return Promise.resolve(res);
+        })
+    }
+
+    register(username, password, firstName, lastName){
+        return this.fetch('/users/register', {
+            method: 'POST',
+            body: JSON.stringify({
+                username,
+                password,
+                firstName,
+                lastName
+            })
+        }).then(res => {
             return Promise.resolve(res);
         })
     }
@@ -31,9 +45,7 @@ export default class AuthService {
     isTokenExpired(token) {
         try {
             const decoded = decode(token);
-            // let hour = (decoded.exp - Date.now())/(1000*3600)
-            // console.log(hour + "hour")
-            if (decoded.exp < Date.now() / 1000) { // Checking if token is expired. N
+            if (decoded.exp / 1000 < Date.now() / 1000) { // Checking if token is expired. N
                 return true;
             }
             else

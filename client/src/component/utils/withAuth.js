@@ -8,12 +8,15 @@ export default function withAuthAdmin(AuthComponent){
         constructor() {
             super()
             this.state = {
-                user: null
+                user: {
+                    admin: false
+                }
             }
         }
 
-        componentWillMount() {
+        async componentWillMount() {
             if (!Auth.loggedIn()) {
+                Auth.logout()
                 this.props.history.replace('/login')
             }
             else {
@@ -31,7 +34,7 @@ export default function withAuthAdmin(AuthComponent){
         }
 
         render() {
-            if (this.state.user.admin) {
+            if (!!this.state.user.admin) {
                 return (
                     <AuthComponent history={this.props.history} user={this.state.user} />
                 )
@@ -51,7 +54,9 @@ export function withAuthUser(AuthComponent){
         constructor() {
             super()
             this.state = {
-                user: null
+                user: {
+                    admin: false
+                }
             }
         }
 
@@ -74,7 +79,7 @@ export function withAuthUser(AuthComponent){
         }
 
         render() {
-            if (this.state.user) {
+            if (!!this.state.user) {
                 return (
                     <AuthComponent history={this.props.history} user={this.state.user} />
                 )

@@ -20,8 +20,6 @@ class Header extends Component {
                                     <h1>Dokumen Akademik UGM</h1>
                                     <p>Semua dokumen akademik UGM ada disini!</p>
                                     <p>To my beloved debugger, you can login with (username: admin, password: admin) xD</p>
-                                    <p>Or you can login with (username: cek1, password: admin) to try as user</p>
-                                    <p>Register not yet implemented, malas buat wk</p>
                                 </td>
                             </tr>
                         </tbody>

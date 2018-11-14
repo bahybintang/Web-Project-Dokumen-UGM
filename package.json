@@ -1,5 +1,5 @@
 {
-  "name": "project-one-mongo",
+  "name": "web-project",
   "version": "1.0.0",
   "description": "Simple web project",
   "main": "server.js",
@@ -25,7 +25,7 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
-  "author": "bahy & rahmat",
+  "author": "bahy",
   "license": "ISC",
   "repository": {
     "type": "git",

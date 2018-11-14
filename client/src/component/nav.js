@@ -60,9 +60,14 @@ class Navbar extends Component {
         }
         else {
             return (
-                <li className="nav-item">
-                    <a className="nav-link" href="/login">Login</a>
-                </li>
+                <div className="collapse navbar-collapse">
+                        <li className="nav-item">
+                            <a className="nav-link" href="/login">Login</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" onClick={this.handleLogout} href="/register">Register</a>
+                        </li>
+                    </div>
             )
 
         }
