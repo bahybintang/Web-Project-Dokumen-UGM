@@ -37,7 +37,7 @@ app.use('/api', [require('./upload-data/upload-data.controller'), require('./dat
 
 app.use(require('./_helpers/error-handler'))
 
-app.get(['/', '/login', '/user', '/request'], (req, res) => {
+app.get(['/', '/login', '/user', '/request', '/register'], (req, res) => {
     res.sendFile(__dirname + '/client/build/index.html')
 })
 
