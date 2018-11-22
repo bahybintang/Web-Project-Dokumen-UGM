@@ -2,6 +2,7 @@ var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
+// var functions = require('firebase-functions')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -52,3 +53,16 @@ app.get('*', (req, res) => {
 app.listen(app.get('port'), function () {
     console.log("listening on port " + app.get('port') + "...")
 })
+
+
+// // untuk deploy firebase
+// const api = functions.https.onRequest((request, response) => {
+//     if (!request.path) {
+//         request.url = `/${request.url}` // prepend '/' to keep query params if any
+//     }
+//     return app(request, response)
+// })
+
+// module.exports = {
+//     api
+// }
