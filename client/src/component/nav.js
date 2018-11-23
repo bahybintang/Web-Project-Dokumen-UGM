@@ -32,7 +32,10 @@ class Navbar extends Component {
         if (this.state.loggedIn) {
             if (this.state.admin) {
                 return (
-                    <div className="collapse navbar-collapse">
+                    <ul className="navbar-nav">
+                        <li className="nav-item active">
+                            <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
+                        </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/admin">Admin</a>
                         </li>
@@ -42,32 +45,38 @@ class Navbar extends Component {
                         <li className="nav-item">
                             <a className="nav-link" onClick={this.handleLogout} href="/">Logout</a>
                         </li>
-                    </div>
+                    </ul>
                 )
             }
             else {
                 return (
-                    <div className="collapse navbar-collapse">
+                    <ul className="navbar-nav">
+                        <li className="nav-item active">
+                            <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
+                        </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/user">User</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" onClick={this.handleLogout} href="/">Logout</a>
                         </li>
-                    </div>
+                    </ul>
                 )
             }
         }
         else {
             return (
-                <div className="collapse navbar-collapse">
-                        <li className="nav-item">
-                            <a className="nav-link" href="/login">Login</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" onClick={this.handleLogout} href="/register">Register</a>
-                        </li>
-                    </div>
+                <ul className="navbar-nav">
+                    <li className="nav-item active">
+                        <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/login">Login</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" onClick={this.handleLogout} href="/register">Register</a>
+                    </li>
+                </ul>
             )
 
         }
@@ -82,12 +91,7 @@ class Navbar extends Component {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav">
-                            <li className="nav-item active">
-                                <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
-                            </li>
-                            <this.navOpt />
-                        </ul>
+                        <this.navOpt />
                     </div>
                 </nav>
             </div>

@@ -36,6 +36,7 @@ class admin extends Component {
       loading: false,
       loadingText: ""
     };
+    this.timeout = 0
     this.handleEvent = this.handleEvent.bind(this)
     this.searchData = this.searchData.bind(this)
     this.handleEventFak = this.handleEventFak.bind(this)
@@ -60,18 +61,27 @@ class admin extends Component {
 
   handleEvent = async (e) => {
     await this.setState({ [e.target.name]: e.target.value });
-    this.searchData();
+    this.search();
   }
 
   handleEventFak = async (e) => {
     await this.setState({ fak: e.value });
-    this.searchData();
+    this.search();
   }
 
   handleEventDep = async (e) => {
     await this.setState({ dep: e.value });
-    this.searchData();
+    this.search();
   }
+
+  search = () => {
+    if(this.timeout){
+      clearTimeout(this.timeout)
+    }
+
+    this.timeout = setTimeout(this.searchData, 500);
+  }
+
 
   searchData = async () => {
     var fetchString = 'api/search/?key=' + this.state.key + '&fak=' + this.state.fak + '&dep=' + this.state.dep;

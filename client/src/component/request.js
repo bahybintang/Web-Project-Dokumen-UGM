@@ -29,6 +29,7 @@ class request extends Component {
       loading : false,
       loadingText: ""
     };
+    this.timeout = 0
     this.handleEvent = this.handleEvent.bind(this)
     this.searchData = this.searchData.bind(this)
     this.handleEventFak = this.handleEventFak.bind(this)
@@ -52,20 +53,32 @@ class request extends Component {
 
   handleEvent = async (e) => {
     await this.setState({ [e.target.name]: e.target.value });
-    this.searchData();
+
+    var abort = false;
+    setTimeout(() => {
+      if(!!e.key){
+        abort = true
+      }
+    }, 500)
+
+    if(abort){
+      return
+    }
+
+    this.search(e);
   }
 
   handleEventFak = async (e) => {
-    await this.setState({ fak: e.value });
-    this.searchData();
+    await this.setState({ fak: e.value })
+    this.search(e)
   }
 
   handleEventDep = async (e) => {
-    await this.setState({ dep: e.value });
-    this.searchData();
+    await this.setState({ dep: e.value })
+    this.search(e)
   }
 
-  searchData = async () => {
+  searchData = async (e) => {
     var fetchString = 'api/request/search/?key=' + this.state.key + '&fak=' + this.state.fak + '&dep=' + this.state.dep;
 
     var res = await fetch(fetchString);
@@ -74,6 +87,15 @@ class request extends Component {
       await this.setState({ response: data, isOkay: true });
     }
   }
+
+  search = () => {
+    if(this.timeout){
+      clearTimeout(this.timeout)
+    }
+
+    this.timeout = setTimeout(this.searchData, 500);
+  }
+
 
   toggleReview = async (e) => {
     if (e.item) await this.setState({ review: !this.state.review, item: e })
