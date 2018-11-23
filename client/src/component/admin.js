@@ -6,6 +6,7 @@ import config from '../search-config.json'
 import Header from './header'
 import withAuthAdmin from './utils/withAuth'
 import UpdateModals from './updateModal'
+import LoadingModals from './loadingModal'
 import AddModals from './addModal'
 import ApiService from './utils/ApiCall'
 
@@ -31,7 +32,9 @@ class admin extends Component {
         file_name: "",
         title: ""
       },
-      add: false
+      add: false,
+      loading: false,
+      loadingText: ""
     };
     this.handleEvent = this.handleEvent.bind(this)
     this.searchData = this.searchData.bind(this)
@@ -97,7 +100,11 @@ class admin extends Component {
   }
 
   performUpdate = async () => {
-    await Api.updateData(this.state.updateItem)
+    if(window.confirm("Sure update data?")){
+      await this.setState({ loading : true, loadingText : "Updating...", update : false })
+      await Api.updateData(this.state.updateItem)
+      await this.setState({ loading : false, loadingText : "" })
+    }
   }
 
   // Add Data
@@ -116,12 +123,25 @@ class admin extends Component {
   }
 
   performAdd = async () => {
-    await Api.addData(this.state.addItem)
+    if(window.confirm("Sure add data?")){
+      await this.setState({ loading : true, loadingText : "Adding...", add : false })
+      await Api.addData(this.state.addItem)
+      await this.setState({ loading : false, loadingText : "" })
+    }
+  }
+
+  performDelete = async (e) => {
+    if (window.confirm("Sure delete data?")){
+      await this.setState({ loading : true, loadingText : "Deleting..." })
+      await Api.deleteData(e._id) 
+      await this.setState({ loading : false, loadingText : "" })
+    }
   }
 
   render() {
     return (
       <div>
+        <LoadingModals text={this.state.loadingText} isOpen={this.state.loading}></LoadingModals>
         <UpdateModals performUpdate={this.performUpdate} onChange={this.onChangeUpdate} updateItem={this.state.updateItem} isOpen={this.state.update} toggleUpdate={this.toggleUpdate} />
         <AddModals performAdd={this.performAdd} onChange={this.onChangeAdd} addItem={this.state.addItem} isOpen={this.state.add} toggleAdd={this.toggleAdd} />
         <Header />
@@ -157,7 +177,7 @@ class admin extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.isOkay ? <ShowSearchDataAdmin openUpdate={this.toggleUpdate} data={this.state.response} /> : <tr><td colSpan="4" className="text-center">Loading data!</td></tr>}
+              {this.state.isOkay ? <ShowSearchDataAdmin performDelete={this.performDelete} openUpdate={this.toggleUpdate} data={this.state.response} /> : <tr><td colSpan="6" className="text-center">Loading data!</td></tr>}
             </tbody>
           </table>
         </div>

@@ -125,7 +125,8 @@ export default class ApiCall {
     deleteRequestData = async(s) => {
         var response = await Auth.fetch('/api/request/delete/' + s, { method : "DELETE" })
         if(response.success){
-            console.log("request deleted")
+            alert("Request Deleted!")
+            window.location = "/request"
             return true
         }
         else {

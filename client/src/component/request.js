@@ -6,6 +6,7 @@ import config from '../search-config.json'
 import Header from './header'
 import withAuthAdmin from './utils/withAuth'
 import ReviewModals from './reviewModal'
+import LoadingModals from './loadingModal'
 import ApiService from './utils/ApiCall'
 
 const Api = new ApiService()
@@ -23,8 +24,10 @@ class request extends Component {
       dep: "",
       review: false,
       item: {
-          item: {}
-      }
+        item: {}
+      },
+      loading : false,
+      loadingText: ""
     };
     this.handleEvent = this.handleEvent.bind(this)
     this.searchData = this.searchData.bind(this)
@@ -73,32 +76,44 @@ class request extends Component {
   }
 
   toggleReview = async (e) => {
-    if(e.item) await this.setState({ review: !this.state.review, item: e })
+    if (e.item) await this.setState({ review: !this.state.review, item: e })
     else await this.setState({ review: !this.state.review })
   }
 
-  acceptReview = (e) => {
-    console.log(e)
-    if(e.type === "update"){
-        if(Api.updateData(e.item)){
-            Api.deleteRequestData(e._id)
+  acceptReview = async (e) => {
+    if (window.confirm("Sure accept request?")) {
+      await this.setState({ loading : true, loadingText : "Loading..." })
+      if (e.type === "update") {
+        if (await Api.updateData(e.item)) {
+          await Api.deleteRequestData(e._id)
         }
+      }
+      else if (e.type === "delete") {
+        if (await Api.deleteData(e.item._id)) {
+          await Api.deleteRequestData(e._id)
+        }
+      }
+      else if (e.type === "add") {
+        if (await Api.addData(e.item)) {
+          await Api.deleteRequestData(e._id)
+        }
+      }
+      await this.setState({ loading : false, loadingText : "" })
     }
-    else if(e.type === "delete"){
-        if(Api.deleteData(e.item._id)){
-            Api.deleteRequestData(e._id)
-        }
-    }
-    else if(e.type === "add"){
-        if(Api.addData(e.item)){
-            Api.deleteRequestData(e._id)
-        }
+  }
+
+  declineRequest = async (e) => {
+    if(window.confirm("Sure delete request?")){
+      await this.setState({ loading : true, loadingText : "Deleting..." })
+      await Api.deleteRequestData(e._id)
+      await this.setState({ loading : false, loadingText : "" })
     }
   }
 
   render() {
     return (
       <div>
+        <LoadingModals isOpen={this.state.loading} text={this.state.loadingText}></LoadingModals>
         <ReviewModals item={this.state.item.item} isOpen={this.state.review} toggleReview={this.toggleReview} />
         <Header />
         <input name="key" className="search form-control col-sm-8" type="text" placeholder="Search" onChange={this.handleEvent} />
@@ -133,10 +148,11 @@ class request extends Component {
                 <th className="text-center col-md-auto">Request Type</th>
                 <th className="col-md-auto"></th>
                 <th className="col-md-auto"></th>
+                <th className="col-md-auto"></th>
               </tr>
             </thead>
             <tbody>
-              {this.state.isOkay ? <ShowRequest acceptReview={this.acceptReview} openReview={this.toggleReview} data={this.state.response} /> : <tr><td colSpan="4" className="text-center">Loading data!</td></tr>}
+              {this.state.isOkay ? <ShowRequest declineRequest={this.declineRequest} acceptReview={this.acceptReview} openReview={this.toggleReview} data={this.state.response} /> : <tr><td colSpan="7" className="text-center">Loading data!</td></tr>}
             </tbody>
           </table>
         </div>

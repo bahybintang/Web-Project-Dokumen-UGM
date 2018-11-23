@@ -40,12 +40,13 @@ class ShowSearchData extends Component {
                             <td className="text-center">{this.requestType(item.type)}</td>
                             <td className="text-center"><button type="button" className="btn btn-warning btn-sm" onClick={async() => await this.props.openReview(item)}>Review</button></td>
                             <td className="text-center"><button type="button" className="btn btn-success btn-sm" onClick={async() => await this.props.acceptReview(item)}>Accept</button></td>
+                            <td className="text-center"><button type="button" className="btn btn-danger btn-sm" onClick={async() => await this.props.declineRequest(item)}>Decline</button></td>
                         </tr>)
                 })
             )
         }
         else {
-            return (<tr><td colSpan="4" className="text-center">Not Found!</td></tr>)
+            return (<tr><td colSpan="7" className="text-center">Not Found!</td></tr>)
         }
     }
 }

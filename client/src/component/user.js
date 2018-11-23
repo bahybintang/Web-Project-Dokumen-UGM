@@ -6,6 +6,7 @@ import config from '../search-config.json'
 import Header from './header'
 import { withAuthUser } from './utils/withAuth'
 import UpdateModals from './updateModal'
+import LoadingModals from './loadingModal'
 import AddModals from './addModal'
 import ApiService from './utils/ApiCall'
 
@@ -97,7 +98,11 @@ class user extends Component {
   }
 
   performUpdate = async () => {
-    await Api.requestUpdateData(this.state.updateItem)
+    if(window.confirm("Sure update data?")){
+      await this.setState({ loading : true, loadingText : "Updating...", update : false })
+      await Api.requestUpdateData(this.state.updateItem)
+      await this.setState({ loading : false, loadingText : "" })
+    }
   }
 
   // Add Data
@@ -115,13 +120,26 @@ class user extends Component {
     await this.setState({ add: !this.state.add })
   }
 
+  performDelete = async(e) => {
+    if(window.confirm("Sure delete data?")){
+      await this.setState({ loading : true, loadingText : "Deleting..."})
+      await Api.requestDeleteData(e) 
+      await this.setState({ loading : false, loadingText : "" })
+    }
+  }
+
   performAdd = async () => {
-    await Api.requestAddData(this.state.addItem)
+    if(window.confirm("Sure add data?")){
+      await this.setState({ loading : true, loadingText : "Adding...", add : false })
+      await Api.requestAddData(this.state.addItem)
+      await this.setState({ loading : false, loadingText : "" })
+    }
   }
 
   render() {
     return (
       <div>
+        <LoadingModals text={this.state.loadingText} isOpen={this.state.loading}></LoadingModals>
         <UpdateModals performUpdate={this.performUpdate} onChange={this.onChangeUpdate} updateItem={this.state.updateItem} isOpen={this.state.update} toggleUpdate={this.toggleUpdate} />
         <AddModals performAdd={this.performAdd} onChange={this.onChangeAdd} addItem={this.state.addItem} isOpen={this.state.add} toggleAdd={this.toggleAdd} />
         <Header />
@@ -157,7 +175,7 @@ class user extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.isOkay ? <ShowSearchDataUser openUpdate={this.toggleUpdate} data={this.state.response} /> : <tr><td colSpan="4" className="text-center">Loading data!</td></tr>}
+              {this.state.isOkay ? <ShowSearchDataUser performDelete={this.performDelete} openUpdate={this.toggleUpdate} data={this.state.response} /> : <tr><td colSpan="6" className="text-center">Loading data!</td></tr>}
             </tbody>
           </table>
         </div>
