@@ -53,29 +53,17 @@ class request extends Component {
 
   handleEvent = async (e) => {
     await this.setState({ [e.target.name]: e.target.value });
-
-    var abort = false;
-    setTimeout(() => {
-      if(!!e.key){
-        abort = true
-      }
-    }, 500)
-
-    if(abort){
-      return
-    }
-
     this.search(e);
   }
 
   handleEventFak = async (e) => {
     await this.setState({ fak: e.value })
-    this.search(e)
+    this.searchData(e)
   }
 
   handleEventDep = async (e) => {
     await this.setState({ dep: e.value })
-    this.search(e)
+    this.searchData(e)
   }
 
   searchData = async (e) => {

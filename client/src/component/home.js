@@ -47,12 +47,12 @@ class home extends Component {
 
   handleEventFak = async (e) => {
     await this.setState({ fak: e.value });
-    this.search();
+    this.searchData();
   }
 
   handleEventDep = async (e) => {
     await this.setState({ dep: e.value });
-    this.search();
+    this.searchData();
   }
 
   search = () => {
