@@ -9,16 +9,19 @@ import UpdateModals from './updateModal'
 import LoadingModals from './loadingModal'
 import AddModals from './addModal'
 import ApiService from './utils/ApiCall'
+import Pagination from './pagination'
 
 const Api = new ApiService()
 const fakultasOptions = config.fakultas
 const departemenOptions = config.departemen
+const pageSizeOptions = config.pageSize
 
 class admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      response: [],
+      items: [],
+      pageItems: [],
       isOkay: false,
       fak: "",
       key: "",
@@ -34,7 +37,8 @@ class admin extends Component {
       },
       add: false,
       loading: false,
-      loadingText: ""
+      loadingText: "",
+      pageSize: 10
     };
     this.timeout = 0
     this.handleEvent = this.handleEvent.bind(this)
@@ -47,15 +51,15 @@ class admin extends Component {
 
   componentDidMount = () => {
     this.callApi()
-      .then(res => this.setState({ response: res, isOkay: true }))
+      .then(res => this.setState({ items: res, isOkay: true }))
       .catch(err => console.log(err));
   }
 
   callApi = async () => {
-    const response = await fetch('api/get');
-    const body = await response.json();
+    const items = await fetch('api/get');
+    const body = await items.json();
 
-    if (response.status !== 200) throw Error(body.message);
+    if (items.status !== 200) throw Error(body.message);
     return body;
   };
 
@@ -74,6 +78,10 @@ class admin extends Component {
     this.searchData();
   }
 
+  handleEventPageSize = async (e) => {
+    await this.setState({ pageSize: e.value });
+  }
+
   search = () => {
     if(this.timeout){
       clearTimeout(this.timeout)
@@ -89,7 +97,7 @@ class admin extends Component {
     var res = await fetch(fetchString);
     var data = await res.json();
     if (data) {
-      await this.setState({ response: data, isOkay: true });
+      await this.setState({ items: data, isOkay: true });
     }
   }
 
@@ -148,6 +156,10 @@ class admin extends Component {
     }
   }
 
+  onChangePage = async (pageItem) => {
+    await this.setState({ pageItems: pageItem })
+  }
+
   render() {
     return (
       <div>
@@ -155,7 +167,7 @@ class admin extends Component {
         <UpdateModals performUpdate={this.performUpdate} onChange={this.onChangeUpdate} updateItem={this.state.updateItem} isOpen={this.state.update} toggleUpdate={this.toggleUpdate} />
         <AddModals performAdd={this.performAdd} onChange={this.onChangeAdd} addItem={this.state.addItem} isOpen={this.state.add} toggleAdd={this.toggleAdd} />
         <Header />
-        <input name="key" className="search form-control col-sm-8" type="text" placeholder="Search" onChange={this.handleEvent} />
+        <input name="key" className="search form-control col-sm-7" type="text" placeholder="Search" onChange={this.handleEvent} />
 
         <Select
           placeholder="Fakultas"
@@ -175,6 +187,15 @@ class admin extends Component {
           isSearchable={true}
         />
 
+        <Select
+          placeholder="Size"
+          value={this.state.pageSize.value}
+          options={pageSizeOptions}
+          onChange={this.handleEventPageSize}
+          className="search react-select col-sm-1"
+          isSearchable={true}
+        />
+
         <div className="table-responsive">
           <table className="table">
             <thead className="thead-light">
@@ -187,10 +208,12 @@ class admin extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.isOkay ? <ShowSearchDataAdmin performDelete={this.performDelete} openUpdate={this.toggleUpdate} data={this.state.response} /> : <tr><td colSpan="6" className="text-center">Loading data!</td></tr>}
+              {this.state.isOkay ? <ShowSearchDataAdmin performDelete={this.performDelete} openUpdate={this.toggleUpdate} data={this.state.pageItems} /> : <tr><td colSpan="6" className="text-center">Loading data!</td></tr>}
             </tbody>
           </table>
         </div>
+
+        <Pagination items={this.state.items} onChangePage={this.onChangePage} pageSize={this.state.pageSize}></Pagination>
       </div>
     )
   }

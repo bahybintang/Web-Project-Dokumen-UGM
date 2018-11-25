@@ -8,16 +8,19 @@ import withAuthAdmin from './utils/withAuth'
 import ReviewModals from './reviewModal'
 import LoadingModals from './loadingModal'
 import ApiService from './utils/ApiCall'
+import Pagination from './pagination'
 
 const Api = new ApiService()
 const fakultasOptions = config.fakultas
 const departemenOptions = config.departemen
+const pageSizeOptions = config.pageSize
 
 class request extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      response: [],
+      items: [],
+      pageItems: [],
       isOkay: false,
       fak: "",
       key: "",
@@ -27,7 +30,8 @@ class request extends Component {
         item: {}
       },
       loading : false,
-      loadingText: ""
+      loadingText: "",
+      pageSize: 10
     };
     this.timeout = 0
     this.handleEvent = this.handleEvent.bind(this)
@@ -39,15 +43,15 @@ class request extends Component {
 
   componentDidMount = () => {
     this.callApi()
-      .then(res => this.setState({ response: res, isOkay: true }))
+      .then(res => this.setState({ items: res, isOkay: true }))
       .catch(err => console.log(err));
   }
 
   callApi = async () => {
-    const response = await fetch('api/request/get');
-    const body = await response.json();
+    const items = await fetch('api/request/get');
+    const body = await items.json();
 
-    if (response.status !== 200) throw Error(body.message);
+    if (items.status !== 200) throw Error(body.message);
     return body;
   };
 
@@ -61,6 +65,10 @@ class request extends Component {
     this.searchData(e)
   }
 
+  handleEventPageSize = async (e) => {
+    await this.setState({ pageSize: e.value });
+  }
+
   handleEventDep = async (e) => {
     await this.setState({ dep: e.value })
     this.searchData(e)
@@ -72,7 +80,7 @@ class request extends Component {
     var res = await fetch(fetchString);
     var data = await res.json();
     if (data) {
-      await this.setState({ response: data, isOkay: true });
+      await this.setState({ items: data, isOkay: true });
     }
   }
 
@@ -120,13 +128,17 @@ class request extends Component {
     }
   }
 
+  onChangePage = async (pageItem) => {
+    await this.setState({ pageItems: pageItem})
+  }
+
   render() {
     return (
       <div>
         <LoadingModals isOpen={this.state.loading} text={this.state.loadingText}></LoadingModals>
         <ReviewModals item={this.state.item.item} isOpen={this.state.review} toggleReview={this.toggleReview} />
         <Header />
-        <input name="key" className="search form-control col-sm-8" type="text" placeholder="Search" onChange={this.handleEvent} />
+        <input name="key" className="search form-control col-sm-7" type="text" placeholder="Search" onChange={this.handleEvent} />
 
         <Select
           placeholder="Fakultas"
@@ -146,6 +158,15 @@ class request extends Component {
           isSearchable={true}
         />
 
+        <Select
+          placeholder="Size"
+          value={this.state.pageSize.value}
+          options={pageSizeOptions}
+          onChange={this.handleEventPageSize}
+          className="search react-select col-sm-1"
+          isSearchable={true}
+        />
+
         <div className="table-responsive">
           <table className="table">
             <thead className="thead-light">
@@ -162,10 +183,12 @@ class request extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.isOkay ? <ShowRequest declineRequest={this.declineRequest} acceptReview={this.acceptReview} openReview={this.toggleReview} data={this.state.response} /> : <tr><td colSpan="7" className="text-center">Loading data!</td></tr>}
+              {this.state.isOkay ? <ShowRequest declineRequest={this.declineRequest} acceptReview={this.acceptReview} openReview={this.toggleReview} data={this.state.pageItems} /> : <tr><td colSpan="7" className="text-center">Loading data!</td></tr>}
             </tbody>
           </table>
         </div>
+
+        <Pagination items={this.state.items} onChangePage={this.onChangePage} pageSize={this.state.pageSize}></Pagination>
       </div>
     )
   }

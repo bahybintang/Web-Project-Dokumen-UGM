@@ -14,12 +14,11 @@ class Header extends Component {
                         <tbody>
                             <tr>
                                 <td>
-                                    <img src={"/assets/images/ugm-icon.png"} style={{ width: "152px", height: "152px", marginRight: "20px" }} alt="pdf" />
+                                    <img src={"/assets/images/ugm-icon.png"} style={{ width: "120px", height: "120px", marginRight: "20px" }} alt="pdf" />
                                 </td>
                                 <td>
-                                    <h1>Dokumen Akademik UGM</h1>
+                                    <h2>Dokumen Akademik UGM</h2>
                                     <p>Semua dokumen akademik UGM ada disini!</p>
-                                    <p>To my beloved debugger, you can login with (username: admin, password: admin) xD</p>
                                 </td>
                             </tr>
                         </tbody>

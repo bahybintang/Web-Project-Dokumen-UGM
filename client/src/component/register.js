@@ -52,10 +52,10 @@ class Register extends Component {
         <div style={{width:"40%", display:"block", margin:"auto"}}>
           <form className="form-signin" onSubmit={this.onSubmit}>
             <h2 className="form-signin-heading" style={{marginTop:"35%"}}>Register</h2>
-            <label htmlFor="inputEmail" className="sr-only">Username</label>
-            <input value={this.state.username} name="username" onChange={this.handleChange} type="username" id="inputEmail" className="form-control" placeholder="Username" required autoFocus/>
-            <label htmlFor="inputPassword" className="sr-only">Password</label>
-            <input value={this.state.password} name="password" onChange={this.handleChange} type="password" id="inputPassword" className="form-control" placeholder="Password" required/>
+            <label htmlFor="inputRegEmail" className="sr-only">Username</label>
+            <input value={this.state.username} name="username" onChange={this.handleChange} type="username" id="inputRegEmail" className="form-control" placeholder="Username" required autoFocus/>
+            <label htmlFor="inputRegPassword" className="sr-only">Password</label>
+            <input value={this.state.password} name="password" onChange={this.handleChange} type="password" id="inputRegPassword" className="form-control" placeholder="Password" required/>
             <label htmlFor="inputFirstName" className="sr-only">First Name</label>
             <input value={this.state.firstName} name="firstName" onChange={this.handleChange} type="text" id="inputFirstName" className="form-control" placeholder="First Name" required/>
             <label htmlFor="inputLastName" className="sr-only">Last Name</label>
@@ -71,10 +71,10 @@ class Register extends Component {
         <div style={{width:"40%", display:"block", margin:"auto"}}>
           <form className="form-signin" onSubmit={this.onSubmit}>
             <h2 className="form-signin-heading" style={{marginTop:"35%"}}>Register</h2>
-            <label htmlFor="inputEmail" className="sr-only">Username</label>
-            <input value={this.state.username} name="username" onChange={this.handleChange} type="username" id="inputEmail" className="form-control" placeholder="Username" required autoFocus/>
-            <label htmlFor="inputPassword" className="sr-only">Password</label>
-            <input value={this.state.password} name="password" onChange={this.handleChange} type="password" id="inputPassword" className="form-control" placeholder="Password" required/>
+            <label htmlFor="inputRegEmail" className="sr-only">Username</label>
+            <input value={this.state.username} name="username" onChange={this.handleChange} type="username" id="inputRegEmail" className="form-control" placeholder="Username" required autoFocus/>
+            <label htmlFor="inputRegPassword" className="sr-only">Password</label>
+            <input value={this.state.password} name="password" onChange={this.handleChange} type="password" id="inputRegPassword" className="form-control" placeholder="Password" required/>
             <label htmlFor="inputFirstName" className="sr-only">First Name</label>
             <input value={this.state.firstName} name="firstName" onChange={this.handleChange} type="text" id="inputFirstName" className="form-control" placeholder="First Name" required/>
             <label htmlFor="inputLastName" className="sr-only">Last Name</label>
