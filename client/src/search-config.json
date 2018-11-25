@@ -33,6 +33,7 @@
     ],
 
     "departemen": {
+        "" : [],
         "mipa": [
             {"value": "", "label": "Any"},
             {"value": "fisika", "label": "Fisika"},

@@ -14,7 +14,61 @@ const customStyles = {
 
 export default class reviewModal extends Component {
 
+    constructor(props){
+        super(props)
+        this.state = {
+            data: undefined,
+            loaded: false
+        }
+    }
+
+    componentDidUpdate = async () => {
+        if(this.props.isOpen && !this.state.loaded){
+            var item =  await fetch('api/get/' + this.props.item.item._id, { method: "GET" })
+            var jsonItem = await item.json()
+            await this.setState({ data : jsonItem, loaded : true })
+        }
+    }
+
+    componentWillReceiveProps(prevProps, prevState){
+        if(prevProps !== this.props){
+            this.setState({ data: undefined, loaded: false })
+        }
+    }
+
+    getOldData = () => {
+        if(!!this.state.data){
+            return (
+                <td>
+                    <form className="form-group">
+                        <label style={{ marginBottom: "0px" }}>Title</label>
+                        <input style={{ marginTop: "5px" }} name="title" className="form-control" value={this.state.data.title} type="text" readOnly></input>
+                        <label style={{ marginBottom: "0px" }}>Fakultas</label>
+                        <input style={{ marginTop: "5px" }} name="fakultas" className="form-control" value={this.state.data.fakultas} type="text" readOnly></input>
+                        <label style={{ marginBottom: "0px" }}>Departemen</label>
+                        <input style={{ marginTop: "5px" }} name="departemen" className="form-control" value={this.state.data.departemen} type="text" readOnly></input>
+                        <label style={{ marginBottom: "0px" }}>URL</label>
+                        <input style={{ marginTop: "5px" }} name="url" className="form-control" value={this.state.data.url} type="text" readOnly></input>
+                        <label style={{ marginBottom: "0px" }}>Nama File</label>
+                        <input style={{ marginTop: "5px" }} name="file_name" className="form-control" value={this.state.data.file_name} type="text" readOnly></input>
+                    </form>
+                </td>
+            )
+        }
+        else if(this.state.loaded){
+            return(
+                <td>Data not found!</td>
+            )
+        }
+        else {
+            return ('')
+        }
+    }
+
     render() {
+
+    const Header = <thead><tr><th>New Data</th><th>Old Data</th></tr></thead>
+
         return (
             <div>
                 <Modal
@@ -22,21 +76,34 @@ export default class reviewModal extends Component {
                     isOpen={this.props.isOpen}
                     ariaHideApp={false}
                 >
-                    <h3 style={{marginBottom:"10px"}}>Review Data</h3>
-                    <form className="from-group">
-                        <label style={{marginBottom:"0px"}}>Title</label>
-                        <input style={{marginTop: "5px"}}name="title" className="form-control" value={this.props.item ? (this.props.item.title||"") : ""} type="text" readOnly></input>
-                        <label style={{marginBottom:"0px"}}>Fakultas</label>
-                        <input style={{marginTop: "5px"}}name="fakultas" className="form-control" value={this.props.item ? (this.props.item.fakultas||"") : ""} type="text" readOnly></input>
-                        <label style={{marginBottom:"0px"}}>Departemen</label>
-                        <input style={{marginTop: "5px"}}name="departemen" className="form-control"value={this.props.item ? (this.props.item.departemen||"") : ""} type="text" readOnly></input>
-                        <label style={{marginBottom:"0px"}}>URL</label>
-                        <input style={{marginTop: "5px"}}name="url" className="form-control" value={this.props.item ? (this.props.item.url||"") : ""} type="text" readOnly></input>
-                        <label style={{marginBottom:"0px"}}>Nama File</label>
-                        <input style={{marginTop: "5px"}}name="file_name" className="form-control" value={this.props.item ? (this.props.item.file_name||"") : ""} type="text" readOnly></input>
-                    </form>
-                    <div style={{marginTop:"10px",textAlign:"center", display:"inline-block", width:"100%"}}>
-                        <button style={{marginLeft: "20px"}}onClick={this.props.toggleReview} className="btn btn-success col-sm-2">Ok</button>
+                    <h3 style={{ marginBottom: "10px" }}>Review Data</h3>
+                    <div className="table-responsive">
+                        <table className="table">
+                            {this.props.item.type !== "update" ? '' : Header}
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <form className="form-group">
+                                            <label style={{ marginBottom: "0px" }}>Title</label>
+                                            <input style={{ marginTop: "5px" }} name="title" className="form-control" value={this.props.item.item ? (this.props.item.item.title || "") : ""} type="text" readOnly></input>
+                                            <label style={{ marginBottom: "0px" }}>Fakultas</label>
+                                            <input style={{ marginTop: "5px" }} name="fakultas" className="form-control" value={this.props.item.item ? (this.props.item.item.fakultas || "") : ""} type="text" readOnly></input>
+                                            <label style={{ marginBottom: "0px" }}>Departemen</label>
+                                            <input style={{ marginTop: "5px" }} name="departemen" className="form-control" value={this.props.item.item ? (this.props.item.item.departemen || "") : ""} type="text" readOnly></input>
+                                            <label style={{ marginBottom: "0px" }}>URL</label>
+                                            <input style={{ marginTop: "5px" }} name="url" className="form-control" value={this.props.item.item ? (this.props.item.item.url || "") : ""} type="text" readOnly></input>
+                                            <label style={{ marginBottom: "0px" }}>Nama File</label>
+                                            <input style={{ marginTop: "5px" }} name="file_name" className="form-control" value={this.props.item.item ? (this.props.item.item.file_name || "") : ""} type="text" readOnly></input>
+                                        </form>
+                                    </td>
+                                    {!this.state.loaded && this.props.item.type === "update" ? <td><i className="fa fa-spinner fa-spin" /> Loading Data.. </td> : ''}
+                                    {this.props.item.type === "update" ? <this.getOldData></this.getOldData> : ''}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style={{ marginTop: "10px", textAlign: "center", display: "inline-block", width: "100%" }}>
+                        <button style={{ marginLeft: "20px" }} onClick={this.props.toggleReview} className="btn btn-success col-sm-2">Ok</button>
                     </div>
                 </Modal>
             </div>

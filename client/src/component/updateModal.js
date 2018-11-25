@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
+import config from '../search-config.json';
+
+const fakultasOptions = config.fakultas
+const departemenOptions = config.departemen
 
 const customStyles = {
     content: {
@@ -27,9 +31,23 @@ export default class updateModal extends Component {
                         <label style={{marginBottom:"0px"}}>Title</label>
                         <input style={{marginTop: "5px"}}name="title" className="form-control" onChange={this.props.onChange} value={this.props.updateItem ? (this.props.updateItem.title||"") : ""} type="text"></input>
                         <label style={{marginBottom:"0px"}}>Fakultas</label>
-                        <input style={{marginTop: "5px"}}name="fakultas" className="form-control" onChange={this.props.onChange} value={this.props.updateItem ? (this.props.updateItem.fakultas||"") : ""} type="text"></input>
+                        <select value={this.props.updateItem.fakultas} className="form-control" name="fakultas" form="addForm" onChange={this.props.onChange}>
+                            <option value="" disabled selected>Choose</option>
+                            {fakultasOptions.map(el => {
+                                return(
+                                    <option value={el.value}>{el.label}</option>
+                                )
+                            })}
+                        </select>
                         <label style={{marginBottom:"0px"}}>Departemen</label>
-                        <input style={{marginTop: "5px"}}name="departemen" className="form-control" onChange={this.props.onChange} value={this.props.updateItem ? (this.props.updateItem.departemen||"") : ""} type="text"></input>
+                        <select value={this.props.updateItem.departemen !== "" ? this.props.updateItem.departemen : "Any"} className="form-control" name="departemen" form="addForm" onChange={this.props.onChange}>
+                            <option value="" disabled selected>Choose</option>
+                            {departemenOptions[this.props.updateItem.fakultas || ""].map(el => {
+                                return(
+                                    <option value={el.value}>{el.label}</option>
+                                )
+                            })}
+                        </select>
                         <label style={{marginBottom:"0px"}}>URL</label>
                         <input style={{marginTop: "5px"}}name="url" className="form-control" onChange={this.props.onChange} value={this.props.updateItem ? (this.props.updateItem.url||"") : ""} type="text"></input>
                         <label style={{marginBottom:"0px"}}>Nama File</label>

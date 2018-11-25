@@ -6,7 +6,6 @@ export default class ApiCall {
     deleteData = async(s) => {
         var response = await Auth.fetch('/api/delete/' + s, { method : "DELETE" })
         if(response.success){
-            alert("Data deleted")
             window.location = '/admin'
             return true
         }
@@ -23,7 +22,6 @@ export default class ApiCall {
         });
 
         if(response.success){
-            alert("Data updated!")
             window.location = "/admin"
             return true
         }
@@ -40,7 +38,6 @@ export default class ApiCall {
         });
 
         if(response.success){
-            alert("Data added!")
             window.location = "/admin"
             return true
         }
@@ -64,7 +61,6 @@ export default class ApiCall {
         });
 
         if(response.success){
-            alert("Data update requested!")
             window.location = "/user"
             return true
         }
@@ -88,7 +84,6 @@ export default class ApiCall {
         });
 
         if(response.success){
-            alert("Data add requested!")
             window.location = "/user"
             return true
         }
@@ -112,7 +107,6 @@ export default class ApiCall {
         });
 
         if(response.success){
-            alert("Data delete requested!")
             window.location = "/user"
             return true
         }
@@ -125,7 +119,6 @@ export default class ApiCall {
     deleteRequestData = async(s) => {
         var response = await Auth.fetch('/api/request/delete/' + s, { method : "DELETE" })
         if(response.success){
-            alert("Request Deleted!")
             window.location = "/request"
             return true
         }

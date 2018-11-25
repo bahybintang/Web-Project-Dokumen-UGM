@@ -27,7 +27,7 @@ class user extends Component {
       key: "",
       dep: "",
       update: false,
-      updateItem: null,
+      updateItem: {},
       addItem: {
         fakultas: "",
         departemen: "",
@@ -47,22 +47,9 @@ class user extends Component {
     this.onChangeUpdate = this.onChangeUpdate.bind(this)
   }
 
-  componentDidMount = () => {
-    this.callApi()
-      .then(res => this.setState({ items: res, isOkay: true }))
-      .catch(err => console.log(err));
+  async componentWillMount() {
+    await this.searchData()
   }
-
-  callApi = async () => {
-    const items = await fetch('api/get');
-    const body = await items.json();
-
-    if(items.status === 500){
-      this.callApi()
-    }
-    if (items.status !== 200) throw Error(body.message);
-    return body;
-  };
 
   handleEvent = async (e) => {
     await this.setState({ [e.target.name]: e.target.value });
@@ -208,7 +195,7 @@ class user extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.isOkay ? <ShowSearchDataUser performDelete={this.performDelete} openUpdate={this.toggleUpdate} data={this.state.pageItems} /> : <tr><td colSpan="6" className="text-center">Loading data!</td></tr>}
+              {this.state.isOkay ? <ShowSearchDataUser performDelete={this.performDelete} openUpdate={this.toggleUpdate} data={this.state.pageItems} /> : <tr><td colSpan="6" className="text-center"><i className="fa fa-spinner fa-spin" /> Loading data!</td></tr>}
             </tbody>
           </table>
         </div>

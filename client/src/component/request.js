@@ -41,22 +41,9 @@ class request extends Component {
     this.toggleReview = this.toggleReview.bind(this)
   }
 
-  componentDidMount = () => {
-    this.callApi()
-      .then(res => this.setState({ items: res, isOkay: true }))
-      .catch(err => console.log(err));
+  async componentWillMount() {
+    await this.searchData()
   }
-
-  callApi = async () => {
-    const items = await fetch('api/request/get');
-    const body = await items.json();
-
-    if(items.status === 500){
-      this.callApi()
-    }
-    if (items.status !== 200) throw Error(body.message);
-    return body;
-  };
 
   handleEvent = async (e) => {
     await this.setState({ [e.target.name]: e.target.value });
@@ -139,7 +126,7 @@ class request extends Component {
     return (
       <div>
         <LoadingModals isOpen={this.state.loading} text={this.state.loadingText}></LoadingModals>
-        <ReviewModals item={this.state.item.item} isOpen={this.state.review} toggleReview={this.toggleReview} />
+        <ReviewModals item={this.state.item} isOpen={this.state.review} toggleReview={this.toggleReview} />
         <Header />
         <input name="key" className="search form-control col-sm-7" type="text" placeholder="Search" onChange={this.handleEvent} />
 
@@ -186,7 +173,7 @@ class request extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.isOkay ? <ShowRequest declineRequest={this.declineRequest} acceptReview={this.acceptReview} openReview={this.toggleReview} data={this.state.pageItems} /> : <tr><td colSpan="7" className="text-center">Loading data!</td></tr>}
+              {this.state.isOkay ? <ShowRequest declineRequest={this.declineRequest} acceptReview={this.acceptReview} openReview={this.toggleReview} data={this.state.pageItems} /> : <tr><td colSpan="7" className="text-center"><i className="fa fa-spinner fa-spin" /> Loading data!</td></tr>}
             </tbody>
           </table>
         </div>

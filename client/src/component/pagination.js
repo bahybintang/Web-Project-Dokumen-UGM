@@ -43,7 +43,7 @@ class Pagination extends React.Component {
         }
  
         // get new pager object for specified page
-        pager = this.getPager(items.length === 0 ? 1 : items.length, page, pageSize);
+        pager = this.getPager(Math.max(items.length, 1), page, pageSize);
  
         // get new page of items from items array
         var pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);

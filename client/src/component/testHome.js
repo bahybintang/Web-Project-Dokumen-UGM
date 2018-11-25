@@ -4,13 +4,11 @@ import Select from 'react-select';
 import '../css/home.css';
 import config from '../search-config.json';
 import Header from './header';
-import Pagination from './pagination'
 
 const fakultasOptions = config.fakultas
 const departemenOptions = config.departemen
-const pageSizeOptions = config.pageSize
 
-class home extends Component {
+class testhome extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +18,10 @@ class home extends Component {
       fak: "",
       key: "",
       dep: "",
-      pageSize: 10
+      page: 1,
+      pageSize: 10,
+      stop: false,
+      loading: false
     };
     this.timeout = 0
     this.handleEvent = this.handleEvent.bind(this)
@@ -32,6 +33,14 @@ class home extends Component {
 
   async componentWillMount() {
     await this.searchData()
+  }
+
+  componentDidMount() {
+    document.addEventListener('scroll', this.loadMore);
+  }
+  
+  componentWillUnmount() {
+    document.removeEventListener('scroll', this.loadMore);
   }
 
   handleEvent = async (e) => {
@@ -62,24 +71,49 @@ class home extends Component {
   }
 
   async searchData() {
-    var fetchString = 'api/search/?key=' + this.state.key + '&fak=' + this.state.fak + '&dep=' + this.state.dep;
+    await this.setState({ page: 1 })
+    var fetchString = 'api/search/?key=' + this.state.key + '&fak=' + this.state.fak + '&dep=' + this.state.dep + '&_page=' + this.state.page + '&_page_len=' + this.state.pageSize;
 
     var res = await fetch(fetchString);
     var data = await res.json();
     if (data) {
-      await this.setState({ items: data, isOkay: true });
+      await this.setState({ items: data, isOkay: true, stop: false });
     }
   }
 
-  onChangePage = async (pageItem) => {
-    await this.setState({ pageItems : pageItem })
+  loadMore = async () => {
+    if(this.state.stop){
+        return
+    }
+    await this.setState({ page : this.state.page + 1, loading: true })
+    var fetchString = 'api/search/?key=' + this.state.key + '&fak=' + this.state.fak + '&dep=' + this.state.dep + '&_page=' + this.state.page + '&_page_len=' + this.state.pageSize
+    var res = await fetch(fetchString);
+    var data = await res.json();
+
+    if(data.length){
+        var tmp = this.state.items
+        data.map(element => {
+            return(
+                tmp.push(element)
+                )
+        });
+        await this.setState({ items : tmp, loading: false })
+    }
+    else {
+        await this.setState({ stop: true, loading: false })
+    }
+  }
+
+  isBottom(el) {
+    return el.getBoundingClientRect().bottom <= window.innerHeight;
   }
 
   render() {
+    const Loading = <div className="text-center"><i className="fa fa-spinner fa-spin" />Loading...</div>
     return (
       <div>
         <Header />
-        <input name="key" className="search form-control col-sm-7" type="text" placeholder="Search" onChange={this.handleEvent} />
+        <input name="key" className="search form-control col-sm-8" type="text" placeholder="Search" onChange={this.handleEvent} />
 
         <Select
           placeholder="Fakultas"
@@ -99,15 +133,6 @@ class home extends Component {
           isSearchable={true}
         />
 
-        <Select
-          placeholder="Size"
-          value={this.state.pageSize.value}
-          options={pageSizeOptions}
-          onChange={this.handleEventPageSize}
-          className="search react-select col-sm-1"
-          isSearchable={true}
-        />
-
         <div className="table-responsive">
           <table className="table">
             <thead className="thead-light">
@@ -119,15 +144,14 @@ class home extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.isOkay ? <ShowSearchData data={this.state.pageItems} /> : <tr><td colSpan="4" className="text-center"><i className="fa fa-spinner fa-spin" /> Loading data!</td></tr>}
+              {this.state.isOkay ? <ShowSearchData data={this.state.items} /> : <tr><td colSpan="4" className="text-center"><i className="fa fa-spinner fa-spin" /> Loading data!</td></tr>}
             </tbody>
           </table>
         </div>
-
-        <Pagination items={this.state.items} onChangePage={this.onChangePage} pageSize={this.state.pageSize}></Pagination>
+        {this.state.loading ? Loading : ''}
       </div>
     );
   }
 }
 
-export default home;
+export default testhome;
