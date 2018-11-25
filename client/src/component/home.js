@@ -85,7 +85,6 @@ class home extends Component {
   }
 
   onChangePage = async (pageItem) => {
-    console.log(pageItem)
     await this.setState({ pageItems : pageItem })
   }
 
