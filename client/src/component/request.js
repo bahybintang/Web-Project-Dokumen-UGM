@@ -51,6 +51,9 @@ class request extends Component {
     const items = await fetch('api/request/get');
     const body = await items.json();
 
+    if(items.status === 500){
+      this.callApi()
+    }
     if (items.status !== 200) throw Error(body.message);
     return body;
   };
@@ -66,7 +69,7 @@ class request extends Component {
   }
 
   handleEventPageSize = async (e) => {
-    await this.setState({ pageSize: e.value });
+    await this.setState({ pageSize: Number(e.value) });
   }
 
   handleEventDep = async (e) => {

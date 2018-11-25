@@ -40,7 +40,10 @@ class home extends Component {
     const items = await fetch('api/get');
     const body = await items.json();
 
-    if (items.status !== 200) throw Error(body.message);
+    if(items.status === 500){
+      this.callApi()
+    }
+    else if (items.status !== 200) throw Error(body.message);
     return body;
   };
 
@@ -60,7 +63,7 @@ class home extends Component {
   }
 
   handleEventPageSize = async (e) => {
-    await this.setState({ pageSize: e.value });
+    await this.setState({ pageSize: Number(e.value) });
   }
 
   search = () => {
@@ -82,6 +85,7 @@ class home extends Component {
   }
 
   onChangePage = async (pageItem) => {
+    console.log(pageItem)
     await this.setState({ pageItems : pageItem })
   }
 
