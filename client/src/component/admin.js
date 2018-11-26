@@ -59,7 +59,7 @@ class admin extends Component {
   }
 
   handleEventFak = async (e) => {
-    await this.setState({ fak: e.value });
+    await this.setState({ fak: e.value, dep: "" });
     this.searchData();
   }
 

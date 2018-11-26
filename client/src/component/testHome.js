@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ShowSearchData from './showSearchData';
-import Select from 'react-select';
 import '../css/home.css';
 import config from '../search-config.json';
 import Header from './header';
@@ -26,8 +25,6 @@ class testhome extends Component {
     this.timeout = 0
     this.handleEvent = this.handleEvent.bind(this)
     this.searchData = this.searchData.bind(this)
-    this.handleEventFak = this.handleEventFak.bind(this)
-    this.handleEventDep = this.handleEventDep.bind(this)
     this.search = this.search.bind(this)
   }
 
@@ -38,7 +35,7 @@ class testhome extends Component {
   componentDidMount() {
     document.addEventListener('scroll', this.loadMore);
   }
-  
+
   componentWillUnmount() {
     document.removeEventListener('scroll', this.loadMore);
   }
@@ -48,22 +45,12 @@ class testhome extends Component {
     this.search();
   }
 
-  handleEventFak = async (e) => {
-    await this.setState({ fak: e.value });
-    this.searchData();
-  }
-
-  handleEventDep = async (e) => {
-    await this.setState({ dep: e.value });
-    this.searchData();
-  }
-
   handleEventPageSize = async (e) => {
     await this.setState({ pageSize: Number(e.value) });
   }
 
   search = () => {
-    if(this.timeout){
+    if (this.timeout) {
       clearTimeout(this.timeout)
     }
 
@@ -82,25 +69,25 @@ class testhome extends Component {
   }
 
   loadMore = async () => {
-    if(this.state.stop){
-        return
+    if (this.state.stop) {
+      return
     }
-    await this.setState({ page : this.state.page + 1, loading: true })
+    await this.setState({ page: this.state.page + 1, loading: true })
     var fetchString = 'api/search/?key=' + this.state.key + '&fak=' + this.state.fak + '&dep=' + this.state.dep + '&_page=' + this.state.page + '&_page_len=' + this.state.pageSize
     var res = await fetch(fetchString);
     var data = await res.json();
 
-    if(data.length){
-        var tmp = this.state.items
-        data.map(element => {
-            return(
-                tmp.push(element)
-                )
-        });
-        await this.setState({ items : tmp, loading: false })
+    if (data.length) {
+      var tmp = this.state.items
+      data.map(element => {
+        return (
+          tmp.push(element)
+        )
+      });
+      await this.setState({ items: tmp, loading: false })
     }
     else {
-        await this.setState({ stop: true, loading: false })
+      await this.setState({ stop: true, loading: false })
     }
   }
 
@@ -113,34 +100,48 @@ class testhome extends Component {
     return (
       <div>
         <Header />
-        <input name="key" className="search form-control col-sm-8" type="text" placeholder="Search" onChange={this.handleEvent} />
 
-        <Select
-          placeholder="Fakultas"
-          value={this.state.fak.value}
-          options={fakultasOptions}
-          onChange={this.handleEventFak}
-          className="search react-select col-sm-2"
-          isSearchable={true}
-        />
+        <div className="tab-bar form-row">
+          <div className="md-form col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            <input name="key" type="text" id="form1" className="form-control" onChange={this.handleEvent} />
+            <label htmlFor="form1" className="mr2 col-form-label-sm">Search</label>
+          </div>
 
-        <Select
-          placeholder="Departemen"
-          value={this.state.dep.value}
-          options={departemenOptions[this.state.fak]}
-          onChange={this.handleEventDep}
-          className="search react-select col-sm-2"
-          isSearchable={true}
-        />
+          <div className="my-select col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <select name="fak" onChange={this.handleEvent} className="browser-default custom-select">
+              <option value="" disabled selected>Fakultas</option>
+              {fakultasOptions.map(el => {
+                return (
+                  <option key={el.value} value={el.value}>{el.label}</option>
+                )
+              })}
+            </select>
+          </div>
+          
+          <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+          <select name="dep" onChange={this.handleEvent} className="browser-default custom-select">
+            <option value="" disabled selected>Departemen</option>
+            {departemenOptions[this.state.fak].map(el => {
+              return (
+                <option key={el.value} value={el.value}>{el.label}</option>
+              )
+            })}
+          </select>
+          </div>
+        </div>
+
+        {/* Test Select */}
+        
+
 
         <div className="table-responsive">
           <table className="table">
-            <thead className="thead-light">
+            <thead className="thead-dark bg-primary">
               <tr>
-                <th style={{ width: "10%" }}>Fakultas</th>
-                <th style={{ width: "40%" }}>Title</th>
-                <th className="text-center" style={{ width: "10%" }}>File Type</th>
-                <th className="text-center" style={{ width: "20%" }}>Download</th>
+                <th className="default-color" style={{ width: "10%" }}>Fakultas</th>
+                <th className="default-color" style={{ width: "40%" }}>Title</th>
+                <th className="text-center default-color" style={{ width: "10%" }}>File Type</th>
+                <th className="text-center default-color" style={{ width: "20%" }}>Download</th>
               </tr>
             </thead>
             <tbody>

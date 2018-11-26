@@ -35,7 +35,7 @@ export default class updateModal extends Component {
                             <option value="" disabled selected>Choose</option>
                             {fakultasOptions.map(el => {
                                 return(
-                                    <option value={el.value}>{el.label}</option>
+                                    <option key={el.value} value={el.value}>{el.label}</option>
                                 )
                             })}
                         </select>
@@ -44,7 +44,7 @@ export default class updateModal extends Component {
                             <option value="" disabled selected>Choose</option>
                             {departemenOptions[this.props.updateItem.fakultas || ""].map(el => {
                                 return(
-                                    <option value={el.value}>{el.label}</option>
+                                    <option key={el.value} value={el.value}>{el.label}</option>
                                 )
                             })}
                         </select>

@@ -9,7 +9,7 @@ class Header extends Component {
     render() {
         return (
             <div>
-                <div className="jumbotron" style={{ paddingBottom: "20px" }}>
+                <div className="jumbotron" style={{ padding: "30px 20px 30px 20px", marginBottom: "0px" }}>
                     <table>
                         <tbody>
                             <tr>
@@ -23,8 +23,9 @@ class Header extends Component {
                             </tr>
                         </tbody>
                     </table>
-                    <Navbar />
+                    
                 </div>
+                <Navbar />
             </div>
         );
     }

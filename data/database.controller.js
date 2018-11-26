@@ -69,7 +69,7 @@ app.post('/update/:id', jwt.user(), (req, res, next) => {
             res.status(200).json(success);
         }
         else {
-            res.status(404).json(fail);
+            res.status(404).json({message : "Data not found (Already deleted) !"});
         }
     });
 });
