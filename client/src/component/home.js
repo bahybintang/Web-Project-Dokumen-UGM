@@ -112,10 +112,10 @@ class home extends Component {
           <table className="table">
             <thead className="thead-light">
               <tr>
-                <th style={{ width: "10%" }}>Fakultas</th>
-                <th style={{ width: "40%" }}>Title</th>
-                <th className="text-center" style={{ width: "10%" }}>File Type</th>
-                <th className="text-center" style={{ width: "20%" }}>Download</th>
+                <th className="bg-primary text-white align-baseline" style={{ width: "10%" }}>Fakultas</th>
+                <th className="bg-primary text-white align-baseline" style={{ width: "40%" }}>Title</th>
+                <th className="text-center bg-primary text-white align-baseline" style={{ width: "10%" }}>File Type</th>
+                <th className="text-center bg-primary text-white align-baseline" style={{ width: "20%" }}>Download</th>
               </tr>
             </thead>
             <tbody>

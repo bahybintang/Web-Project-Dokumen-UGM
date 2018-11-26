@@ -115,7 +115,7 @@ class Pagination extends React.Component {
  
         return (
             <div style={{margin: "auto", display: "table"}}>
-                <ul className="pagination">
+                <ul className="pagination pg-blue">
                     <li className={pager.currentPage === 1 ? 'page-item disabled' : 'page-item'}>
                         <button className="page-link" onClick={() => this.setPage(1)}>First</button>
                     </li>

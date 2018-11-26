@@ -161,15 +161,15 @@ class request extends Component {
           <table className="table">
             <thead className="thead-light">
               <tr>
-                <th className="col-md-auto">Fakultas</th>
-                <th className="col-md-auto">Title</th>
-                <th className="text-center col-md-auto">User</th>
-                <th className="text-center col-md-auto">Date Requested</th>
-                <th className="text-center col-md-auto">Time Requested</th>
-                <th className="text-center col-md-auto">Request Type</th>
-                <th className="col-md-auto"></th>
-                <th className="col-md-auto"></th>
-                <th className="col-md-auto"></th>
+                <th className="col-md-auto bg-primary text-white align-baseline">Fakultas</th>
+                <th className="col-md-auto bg-primary text-white align-baseline">Title</th>
+                <th className="text-center col-md-auto bg-primary text-white align-baseline">User</th>
+                <th className="text-center col-md-auto bg-primary text-white align-baseline">Date Requested</th>
+                <th className="text-center col-md-auto bg-primary text-white align-baseline">Time Requested</th>
+                <th className="text-center col-md-auto bg-primary text-white align-baseline">Request Type</th>
+                <th className="col-md-auto bg-primary text-white align-baseline"></th>
+                <th className="col-md-auto bg-primary text-white align-baseline"></th>
+                <th className="col-md-auto bg-primary text-white align-baseline"></th>
               </tr>
             </thead>
             <tbody>

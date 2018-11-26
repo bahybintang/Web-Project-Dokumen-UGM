@@ -4,79 +4,72 @@ import AuthService from './utils/AuthService';
 
 class Login extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      username : "",
-      password : "",
-      warning : null
+      username: "",
+      password: "",
+      warning: null,
+      logginIn: false
     }
     this.Auth = new AuthService();
   }
 
-  componentWillMount(){
-    if(this.Auth.loggedIn()){
-      if(this.Auth.getProfile().admin){
+  componentWillMount() {
+    if (this.Auth.loggedIn()) {
+      if (this.Auth.getProfile().admin) {
         this.props.history.replace("/admin");
       }
-      else{
+      else {
         this.props.history.replace('/user');
       }
     }
   }
 
   handleChange = async (e) => {
-    await this.setState({[e.target.name]: e.target.value});
+    await this.setState({ [e.target.name]: e.target.value });
   }
 
-  onSubmit = async(e) => {
+  onSubmit = async (e) => {
     e.preventDefault();
 
-    var response = await this.Auth.login(this.state.username, this.state.password);
+    await this.setState({ logginIn : true })
+    var response = await this.Auth.login(this.state.username, this.state.password);      
+    await this.setState({ logginIn : false })
 
-    if(response.message){
-      await this.setState({warning: response.message});
+    if (response.message) {
+      await this.setState({ warning: response.message });
     }
-    else{
-      if(this.Auth.getProfile().admin){
+    else {
+      if (this.Auth.getProfile().admin) {
         this.props.history.replace("/admin");
       }
-      else{
+      else {
         this.props.history.replace('/');
       }
     }
   }
 
   render() {
-    if(this.state.warning){
-      return (
-        <div style={{width:"40%", display:"block", margin:"auto"}}>
-          <form className="form-signin" onSubmit={this.onSubmit}>
-            <h2 className="form-signin-heading" style={{marginTop:"35%"}}>Sign In</h2>
-            <label htmlFor="inputEmail" className="sr-only">Username</label>
-            <input value={this.state.username} name="username" onChange={this.handleChange} type="username" id="inputEmail" className="form-control" placeholder="Username" required autoFocus/>
-            <label htmlFor="inputPassword" className="sr-only">Password</label>
-            <input value={this.state.password} name="password" onChange={this.handleChange} type="password" id="inputPassword" className="form-control" placeholder="Password" required/>
-            <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-          </form>
-          <div style={{marginTop:"10px"}} className="alert alert-danger">{this.state.warning}</div>
-        </div>
-      );
-    }
-    else{
-      return (
-        <div style={{width:"40%", display:"block", margin:"auto"}}>
-          <form className="form-signin" onSubmit={this.onSubmit}>
-            <h2 className="form-signin-heading" style={{marginTop:"35%"}}>Sign In</h2>
-            <label htmlFor="inputEmail" className="sr-only">Username</label>
-            <input value={this.state.username} name="username" onChange={this.handleChange} type="username" id="inputEmail" className="form-control" placeholder="Username" required autoFocus/>
-            <label htmlFor="inputPassword" className="sr-only">Password</label>
-            <input value={this.state.password} name="password" onChange={this.handleChange} type="password" id="inputPassword" className="form-control" placeholder="Password" required/>
-            <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-          </form>
-        </div>
-      );
-    }
+    return (
+      <div className="container" style={{ maxWidth: "500px" }}>
+        <p className="h4 text-center text-white bg-primary" style={{borderRadius: "5px 5px 0px 0px", padding: "20px 20px 20px 20px", margin: "25% 0px 0px 0px"}}>Sign In</p>
+        <form className="text-center border border-light p-5" onSubmit={this.onSubmit}>
+
+          <input onChange={this.handleChange} name="username" type="username" id="defaultLoginFormEmail" className="form-control mb-4" placeholder="Username" />
+
+          <input onChange={this.handleChange} name="password" type="password" id="defaultLoginFormPassword" className="form-control mb-4" placeholder="Password" />
+
+          {this.state.logginIn ? <button className="btn btn-primary btn-block my-4" type="submit" disabled>Signing in...</button> : <button className="btn btn-primary btn-block my-4" type="submit">Sign in</button>}
+
+          {this.state.warning ? <div style={{ marginTop: "10px" }} className="alert alert-danger">{this.state.warning}</div> : ''}
+
+          <p>Not a member?
+              <a href="/register"> Register</a>
+          </p>
+        </form>
+      </div>
+    )
   }
 }
 

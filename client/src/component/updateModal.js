@@ -26,7 +26,9 @@ export default class updateModal extends Component {
                     isOpen={this.props.isOpen}
                     ariaHideApp={false}
                 >
-                    <h3 style={{marginBottom:"10px"}}>Update Data</h3>
+                    <div className="bg-primary" style={{margin:"-20px -20px 10px -20px", padding:"20px 20px 10px 25px"}}>
+                        <h3 className="text-white"><strong>Update Data</strong></h3>
+                    </div>
                     <form className="from-group">
                         <label style={{marginBottom:"0px"}}>Title</label>
                         <input style={{marginTop: "5px"}}name="title" className="form-control" onChange={this.props.onChange} value={this.props.updateItem ? (this.props.updateItem.title||"") : ""} type="text"></input>
@@ -53,9 +55,9 @@ export default class updateModal extends Component {
                         <label style={{marginBottom:"0px"}}>Nama File</label>
                         <input style={{marginTop: "5px"}}name="file_name" className="form-control" onChange={this.props.onChange} value={this.props.updateItem ? (this.props.updateItem.file_name||"") : ""} type="text"></input>
                     </form>
-                    <div style={{marginTop:"10px",textAlign:"center", display:"inline-block", width:"100%"}}>
+                    <div className="row" style={{marginTop:"10px",textAlign:"center", display:"inline-block", width:"100%"}}>
                         <button onClick={this.props.performUpdate} className="btn btn-success col-sm-2">Update</button>
-                        <button style={{marginLeft: "20px"}}onClick={this.props.toggleUpdate} className="btn btn-danger col-sm-2">Cancel</button>
+                        <button onClick={this.props.toggleUpdate} className="btn btn-danger col-sm-2">Cancel</button>
                     </div>
                 </Modal>
             </div>

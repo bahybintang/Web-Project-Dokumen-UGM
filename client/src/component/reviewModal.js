@@ -67,7 +67,7 @@ export default class reviewModal extends Component {
 
     render() {
 
-    const Header = <thead><tr><th>New Data</th><th>Old Data</th></tr></thead>
+    const Header = <thead className="thead-light"><tr><th><strong>New Data</strong></th><th><strong>Old Data</strong></th></tr></thead>
 
         return (
             <div>
@@ -76,7 +76,9 @@ export default class reviewModal extends Component {
                     isOpen={this.props.isOpen}
                     ariaHideApp={false}
                 >
-                    <h3 style={{ marginBottom: "10px" }}>Review Data</h3>
+                    <div className="bg-warning" style={{margin:"-20px -20px 10px -20px", padding:"20px 20px 10px 25px"}}>
+                        <h3 className="text-white"><strong>Review</strong></h3>
+                    </div>
                     <div className="table-responsive">
                         <table className="table">
                             {this.props.item.type !== "update" ? '' : Header}

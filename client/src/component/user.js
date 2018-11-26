@@ -187,11 +187,11 @@ class user extends Component {
           <table className="table">
             <thead className="thead-light">
               <tr>
-                <th style={{ width: "10%" }}>Fakultas</th>
-                <th style={{ width: "40%" }}>Title</th>
-                <th className="text-center" style={{ width: "10%" }}>File Type</th>
-                <th className="text-center" style={{ width: "20%" }}>Download</th>
-                <th onClick={this.toggleAdd} colSpan="2" className="text-center"><button className="btn btn-success btn-sm">Req. Add +</button></th>
+                <th className="bg-primary text-white align-baseline" style={{ width: "10%" }}>Fakultas</th>
+                <th className="bg-primary text-white align-baseline" style={{ width: "40%" }}>Title</th>
+                <th className="text-center bg-primary text-white align-baseline" style={{ width: "10%" }}>File Type</th>
+                <th className="text-center bg-primary text-white align-baseline" style={{ width: "20%" }}>Download</th>
+                <th onClick={this.toggleAdd} colSpan="2" className="text-center bg-primary text-white align-baseline"><button className="addbutton btn btn-success btn-sm">Req. Add +</button></th>
               </tr>
             </thead>
             <tbody>

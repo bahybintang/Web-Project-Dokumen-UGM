@@ -187,14 +187,14 @@ class admin extends Component {
         />
 
         <div className="table-responsive">
-          <table className="table">
+          <table className="table table-striped">
             <thead className="thead-light">
               <tr>
-                <th style={{ width: "10%" }}>Fakultas</th>
-                <th style={{ width: "40%" }}>Title</th>
-                <th className="text-center" style={{ width: "10%" }}>File Type</th>
-                <th className="text-center" style={{ width: "20%" }}>Download</th>
-                <th onClick={this.toggleAdd} colSpan="2" className="text-center"><button className="btn btn-success btn-sm">Add +</button></th>
+                <th className="bg-primary text-white align-baseline" style={{ width: "10%" }}>Fakultas</th>
+                <th className="bg-primary text-white align-baseline" style={{ width: "40%" }}>Title</th>
+                <th className="text-center bg-primary text-white align-baseline" style={{ width: "10%" }}>File Type</th>
+                <th className="text-center bg-primary text-white align-baseline" style={{ width: "20%" }}>Download</th>
+                <th className="bg-primary text-white text-center align-baseline" onClick={this.toggleAdd} colSpan="2" ><button className="addbutton btn btn-success btn-sm">Add +</button></th>
               </tr>
             </thead>
             <tbody>

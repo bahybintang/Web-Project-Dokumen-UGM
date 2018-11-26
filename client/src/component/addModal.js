@@ -26,7 +26,10 @@ export default class addModal extends Component {
                     isOpen={this.props.isOpen}
                     ariaHideApp={false}
                 >
-                    <h3 style={{marginBottom:"10px"}}>Add Data</h3>
+                    <div className="bg-success" style={{margin:"-20px -20px 10px -20px", padding:"20px 20px 10px 25px"}}>
+                        <h3 className="text-white"><strong>Add Data</strong></h3>
+                    </div>
+                    
                     <form className="from-group" id="addForm">
                         <label style={{marginBottom:"0px"}}>Title</label>
                         <input style={{marginTop: "5px"}}name="title" className="form-control" onChange={this.props.onChange} value={this.props.addItem ? (this.props.addItem.title||"") : ""} type="text"></input>
@@ -53,9 +56,9 @@ export default class addModal extends Component {
                         <label style={{marginBottom:"0px"}}>Nama File</label>
                         <input style={{marginTop: "5px"}}name="file_name" className="form-control" onChange={this.props.onChange} value={this.props.addItem ? (this.props.addItem.file_name||"") : ""} type="text"></input>
                     </form>
-                    <div style={{marginTop:"10px",textAlign:"center", display:"inline-block", width:"100%"}}>
+                    <div className="row" style={{marginTop:"10px",textAlign:"center", display:"inline-block", width:"100%"}}>
                         <button onClick={this.props.performAdd} className="btn btn-success col-sm-2">Add</button>
-                        <button style={{marginLeft: "20px"}}onClick={this.props.toggleAdd} className="btn btn-danger col-sm-2">Cancel</button>
+                        <button onClick={this.props.toggleAdd} className="btn btn-danger col-sm-2">Cancel</button>
                     </div>
                 </Modal>
             </div>

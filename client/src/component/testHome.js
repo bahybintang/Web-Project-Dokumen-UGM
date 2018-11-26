@@ -135,13 +135,13 @@ class testhome extends Component {
 
 
         <div className="table-responsive">
-          <table className="table">
-            <thead className="thead-dark bg-primary">
+          <table className="table table-striped">
+            <thead className="thead-light">
               <tr>
-                <th className="default-color" style={{ width: "10%" }}>Fakultas</th>
-                <th className="default-color" style={{ width: "40%" }}>Title</th>
-                <th className="text-center default-color" style={{ width: "10%" }}>File Type</th>
-                <th className="text-center default-color" style={{ width: "20%" }}>Download</th>
+                <th className="bg-primary text-white" style={{ width: "10%" }}>Fakultas</th>
+                <th className="bg-primary text-white" style={{ width: "40%" }}>Title</th>
+                <th className="text-center bg-primary text-white" style={{ width: "10%" }}>File Type</th>
+                <th className="text-center bg-primary text-white" style={{ width: "20%" }}>Download</th>
               </tr>
             </thead>
             <tbody>

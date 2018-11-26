@@ -9,10 +9,10 @@ class ShowSearchData extends Component {
                 this.props.data.map((item) => {
                 return (
                     <tr key={item._id}>
-                        <td>{item.fakultas.toUpperCase()}</td>
-                        <td>{item.title}</td>
-                        <td className="text-center">{Util.iconGenerate(item.file_name.split('.')[item.title.split('.').length])}</td>
-                        <td className="text-center"><a href={item.url}><img src={"/assets/images/download.png"} style={{width:"20px", height:"20px"}} alt="download-button"/></a></td>
+                        <td className="align-baseline">{item.fakultas.toUpperCase()}</td>
+                        <td className="align-baseline">{item.title}</td>
+                        <td className="text-center align-baseline">{Util.iconGenerate(item.file_name.split('.')[item.title.split('.').length])}</td>
+                        <td className="text-center align-baseline"><a href={item.url}><img src={"/assets/images/download.png"} style={{width:"20px", height:"20px"}} alt="download-button"/></a></td>
                     </tr>)
                 })
             )

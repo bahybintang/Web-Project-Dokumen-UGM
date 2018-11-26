@@ -37,3 +37,16 @@
     height: 2rem
 }
 
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #eef6ff;
+ }
+
+ .vertical-align {
+    padding-top: 50%;
+    padding-bottom: 50%
+}
+
+.addbutton{
+    margin: 0px !important; 
+}

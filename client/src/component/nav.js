@@ -87,7 +87,7 @@ class Navbar extends Component {
 
         return (
             <div style={{ paddingTop: "0px", paddingBottom: "0px", marginBottom: "2rem", marginTop: "0px" }}>
-                <nav className="navbar navbar-expand-lg navbar-dark default-color">
+                <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
