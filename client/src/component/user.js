@@ -104,7 +104,8 @@ class user extends Component {
     else await this.setState({ update: !this.state.update })
   }
 
-  performUpdate = async () => {
+  performUpdate = async (e) => {
+    e.preventDefault()
     if(window.confirm("Sure update data?")){
       await this.setState({ loading : true, loadingText : "Updating...", update : false })
       await Api.requestUpdateData(this.state.updateItem)
@@ -135,7 +136,8 @@ class user extends Component {
     }
   }
 
-  performAdd = async () => {
+  performAdd = async (e) => {
+    e.preventDefault()
     if(window.confirm("Sure add data?")){
       await this.setState({ loading : true, loadingText : "Adding...", add : false })
       await Api.requestAddData(this.state.addItem)

@@ -12,7 +12,8 @@ class Register extends Component {
       firstName: "",
       lastName: "",
       warning: null,
-      signingUp: false
+      signingUp: false,
+      loginFail: false
     }
     this.Auth = new AuthService();
     this.handleChange.bind(this)
@@ -36,17 +37,24 @@ class Register extends Component {
   onSubmit = async (e) => {
     e.preventDefault();
 
-    await this.setState({ signingUp: true })
-    var response = await this.Auth.register(this.state.username, this.state.password, this.state.firstName, this.state.lastName);
-    await this.setState({ signingUp: false })
+    var response = {}
+    await this.setState({ signingUp: true, loginFail: false })
+    var regexPass = /^.{8,}$/
+    if(!regexPass.test(this.state.password)){
+      await this.setState({ warning: "Password must be at least 8 characters!", loginFail: true })
+    }
+    else{
+      response = await this.Auth.register(this.state.username, this.state.password, this.state.firstName, this.state.lastName);
+    }
 
     if (response.message) {
       await this.setState({ warning: response.message });
     }
-    else {
+    else if(!this.state.loginFail){
       await this.Auth.login(this.state.username, this.state.password)
       this.props.history.replace('/');
     }
+    await this.setState({ signingUp: false })
   }
 
   render() {

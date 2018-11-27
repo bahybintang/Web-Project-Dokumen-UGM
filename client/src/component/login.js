@@ -35,7 +35,6 @@ class Login extends Component {
 
     await this.setState({ logginIn : true })
     var response = await this.Auth.login(this.state.username, this.state.password);      
-    await this.setState({ logginIn : false })
 
     if (response.message) {
       await this.setState({ warning: response.message });
@@ -48,6 +47,7 @@ class Login extends Component {
         this.props.history.replace('/');
       }
     }
+    await this.setState({ logginIn : false })
   }
 
   render() {

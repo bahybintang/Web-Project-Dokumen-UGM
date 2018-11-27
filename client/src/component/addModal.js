@@ -30,7 +30,7 @@ export default class addModal extends Component {
                         <h3 className="text-white"><strong>Add Data</strong></h3>
                     </div>
                     
-                    <form className="from-group" id="addForm">
+                    <form className="from-group" id="addForm" onSubmit={this.props.performAdd}>
                         <label style={{marginBottom:"0px"}}>Title</label>
                         <input style={{marginTop: "5px"}}name="title" className="form-control" onChange={this.props.onChange} value={this.props.addItem ? (this.props.addItem.title||"") : ""} type="text"></input>
                         <label style={{marginBottom:"0px"}}>Fakultas</label>                        
@@ -55,11 +55,11 @@ export default class addModal extends Component {
                         <input style={{marginTop: "5px"}}name="url" className="form-control" onChange={this.props.onChange} value={this.props.addItem ? (this.props.addItem.url||"") : ""} type="text"></input>
                         <label style={{marginBottom:"0px"}}>Nama File</label>
                         <input style={{marginTop: "5px"}}name="file_name" className="form-control" onChange={this.props.onChange} value={this.props.addItem ? (this.props.addItem.file_name||"") : ""} type="text"></input>
+                        <div className="row" style={{marginTop:"10px",textAlign:"center", display:"inline-block", width:"100%"}}>
+                            <button type="submit" className="btn btn-success col-sm-2">Add</button>
+                            <button onClick={this.props.toggleAdd} className="btn btn-danger col-sm-2">Cancel</button>
+                        </div>
                     </form>
-                    <div className="row" style={{marginTop:"10px",textAlign:"center", display:"inline-block", width:"100%"}}>
-                        <button onClick={this.props.performAdd} className="btn btn-success col-sm-2">Add</button>
-                        <button onClick={this.props.toggleAdd} className="btn btn-danger col-sm-2">Cancel</button>
-                    </div>
                 </Modal>
             </div>
         )
