@@ -184,7 +184,7 @@ class user extends Component {
         />
 
         <div className="table-responsive">
-          <table className="table">
+          <table className="table table-striped">
             <thead className="thead-light">
               <tr>
                 <th className="bg-primary text-white align-baseline" style={{ width: "10%" }}>Fakultas</th>

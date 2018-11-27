@@ -158,7 +158,7 @@ class request extends Component {
         />
 
         <div className="table-responsive">
-          <table className="table">
+          <table className="table table-striped">
             <thead className="thead-light">
               <tr>
                 <th className="col-md-auto bg-primary text-white align-baseline">Fakultas</th>
