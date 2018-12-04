@@ -74,6 +74,9 @@ module.exports = {
   // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
   // See the discussion in https://github.com/facebook/create-react-app/issues/343
   devtool: 'cheap-module-source-map',
+  // // Try ignore node_modules on devtools
+  // target: 'node', // in order to ignore built-in modules like path, fs, etc.
+  // externals: [nodeExternals()],
   // These are the "entry points" to our application.
   // This means they will be the "root" imports that are included in JS bundle.
   entry: [

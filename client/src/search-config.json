@@ -55,7 +55,7 @@
         "feb": [
             {"value": "", "label": "Any"},
             {"value": "akuntansi", "label": "Akuntansi"},
-            {"value": "ekonomi", "label": "ekonomi"},
+            {"value": "ekonomi", "label": "Ekonomi"},
             {"value": "manajemen", "label": "Manajemen"}
         ],
         "biologi": [
@@ -94,7 +94,36 @@
             {"value": "hukumpedata", "label": "Hukum Pedata"},
             {"value": "hukumpidana", "label": "Hukum Pidana"},
             {"value": "hukumtatanegara", "label": "Hukum Tata Negara"}
+        ],
+        "fib": [
+            {"value": "", "label": "Any"}
+        ],
+        "fisipol": [
+            {"value": "", "label": "Any"}
+        ],
+        "fkg": [
+            {"value": "", "label": "Any"}
+        ],
+        "fkh": [
+            {"value": "", "label": "Any"}
+        ],
+        "pertanian": [
+            {"value": "", "label": "Any"}
+        ],
+        "peternakan": [
+            {"value": "", "label": "Any"}
+        ],
+        "psikologi": [
+            {"value": "", "label": "Any"}
+        ],
+        "ftp": [
+            {"value": "", "label": "Any"}
+        ],
+        "Sekolah Pasca Sarjana": [
+            {"value": "", "label": "Any"}
+        ],
+        "sv": [
+            {"value": "", "label": "Any"}
         ]
-        
     }
 }
