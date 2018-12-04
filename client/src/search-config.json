@@ -96,13 +96,36 @@
             {"value": "hukumtatanegara", "label": "Hukum Tata Negara"}
         ],
         "fib": [
-            {"value": "", "label": "Any"}
+            {"value": "", "label": "Any"},
+            {"value": "Antar Budaya", "label": "Antar Budaya"},
+            {"value": "Antropologi", "label": "Antropologi"},
+            {"value": "Arkeologi", "label": "Arkeologi"},
+            {"value": "Bahasa dan Sastra", "label": "Bahasa dan Sastra"},
+            {"value": "Sejarah", "label": "Sejarah"}
         ],
         "fisipol": [
-            {"value": "", "label": "Any"}
+            {"value": "", "label": "Any"},
+            {"value": "Hubungan Internasional", "label": "Hubungan Internasional"},
+            {"value": "Hubungan Internasional", "label": "Hubungan Internasional"},
+            {"value": "Manajemen dan Kebijakan", "label": "Manajemen dan Kebijakan"},
+            {"value": "Pembangunan Sosial dan Kesejahteraan", "label": "Pembangunan Sosial dan Kesejahteraan"},
+            {"value": "Politik dan Pemerintahan", "label": "Politik dan Pemerintahan"},
+            {"value": "Sosiologi", "label": "Sosiologi"}
         ],
         "fkg": [
-            {"value": "", "label": "Any"}
+            {"value": "Bedah Mulut dan Maksilofasial", "label": "Bedah Mulut dan Maksilofasial"},
+            {"value": "Biologioral", "label": "Biologioral"},
+            {"value": "Biomedika Kedokteran Gigi", "label": "Biomedika Kedokteran Gigi"},
+            {"value": "Dental Hygie", "label": "Dental Hygie"},
+            {"value": "Ilmu Biomaterial Kedokteran Gigi", "label": "Ilmu Biomaterial Kedokteran Gigi"},
+            {"value": "Ilmu Kesehatan Gigi Pencegahan dan Ilmu Kesehatan Gigi Masyarakat", "label": "Ilmu Kesehatan Gigi Pencegahan dan Ilmu Kesehatan Gigi Masyarakat"},
+            {"value": "Ilmu Penyakit Mulut", "label": "Ilmu Penyakit Mulut"},
+            {"value": "Kedokteran Gigi Anak", "label": "Kedokteran Gigi Anak"},
+            {"value": "Konservasi Gigi", "label": "Konservasi Gigi"},
+            {"value": "Ortodonsia", "label": "Ortodonsia"},
+            {"value": "Periodonsia", "label": "Periodonsia"},
+            {"value": "Prostodonsia", "label": "Prostodonsia"},
+            {"value": "Radiologi Dentomaksilofasial", "label": "Radiologi Dentomaksilofasial"}
         ],
         "fkh": [
             {"value": "", "label": "Any"}
