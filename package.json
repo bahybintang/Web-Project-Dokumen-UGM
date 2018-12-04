@@ -19,7 +19,7 @@
     "server": "node server.js",
     "client": "cd client && npm start",
     "start": "npm run server",
-    "heroku-postbuild": "cd client && npm install && GENERATE_SOURCEMAP=false && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "bahy",
   "license": "ISC",
