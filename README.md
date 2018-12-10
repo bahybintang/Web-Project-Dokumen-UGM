@@ -12,5 +12,5 @@ npm install
 ## How to Run
 ```bash
 npm run server
-npm run run client
+npm run client
 ```
