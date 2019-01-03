@@ -1,5 +1,7 @@
 # Web Project - Dokumen UGM
-Simple web untuk pencarian data dokumen Akademik UGM.
+Simple web to search academic documents in UGM
+Back End implemented with Node.js using Express.js
+Front End implemented using React.js
 
 ## Install
 ```bash
