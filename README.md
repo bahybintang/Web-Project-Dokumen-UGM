@@ -1,6 +1,6 @@
 # Web Project - Dokumen UGM
-Simple web to search academic documents in UGM
-Back End implemented with Node.js using Express.js
+Simple web to search academic documents in UGM <br />
+Back End implemented with Node.js using Express.js <br />
 Front End implemented using React.js
 
 ## Install
